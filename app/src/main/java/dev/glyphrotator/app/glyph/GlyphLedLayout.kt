@@ -25,7 +25,7 @@ object GlyphLedLayout {
     )
 
     const val LED_COUNT = 489
-    const val MATRIX_SIZE = 25
+    val MATRIX_SIZE: Int get() = com.nothing.ketchum.Common.getDeviceMatrixLength().takeIf { it > 0 } ?: 25
 
     /**
      * Convierte un frame en crudo (un valor por LED) a un bitmap cuadrado en gris.

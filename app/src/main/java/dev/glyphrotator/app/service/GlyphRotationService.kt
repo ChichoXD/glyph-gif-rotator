@@ -144,7 +144,7 @@ class GlyphRotationService : Service() {
         // incluso si luego decidimos pararlo por ser un dispositivo no compatible.
         startForeground(NOTIFICATION_ID, buildNotification())
 
-        if (!Common.is23112()) {
+        if (!Common.is23112() && !Common.is25111p()) {
             Log.e(TAG, "Este dispositivo no es un Nothing Phone (3): deteniendo el servicio")
             stopSelf()
             return

@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         setupBluetoothGifPicker()
 
 
-        if (!Common.is23112()) {
+        if (!Common.is23112() && !Common.is25111p()) {
             Toast.makeText(this, R.string.toast_unsupported_device, Toast.LENGTH_LONG).show()
         }
     }

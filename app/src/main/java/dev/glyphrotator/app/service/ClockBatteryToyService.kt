@@ -16,6 +16,7 @@ import android.os.Looper
 import android.os.Message
 import android.os.Messenger
 import android.util.Log
+import com.nothing.ketchum.Common
 import com.nothing.ketchum.Glyph
 import com.nothing.ketchum.GlyphMatrixFrame
 import com.nothing.ketchum.GlyphMatrixManager
@@ -166,24 +167,40 @@ class ClockBatteryToyService : Service(), SensorEventListener {
             val amPm = if (hour24 < 12) "AM" else "PM"
             val showColon = calendar.get(Calendar.SECOND) % 2 == 0
 
+            // En una Matrix pequeña "12:34" no entra de ancho, así que la hora se parte en dos
+            // líneas y se deja el AM/PM fuera. Es la diferencia entre leer la hora y ver una
+            // fila de píxeles cortada por la mitad.
+            val narrow = MATRIX_SIZE < WIDE_MATRIX_SIZE
+            val timeText = if (narrow) {
+                "%02d\n%02d".format(hour12, minute)
+            } else {
+                "%02d%s%02d".format(hour12, if (showColon) ":" else " ", minute)
+            }
             // La X se calcula siempre con ":" para que no salte al parpadear el separador.
-            val timeX = GlyphTextMetrics.centeredX("%02d:%02d".format(hour12, minute), MATRIX_SIZE)
-            val timeText = "%02d%s%02d".format(hour12, if (showColon) ":" else " ", minute)
+            val timeX = if (narrow) {
+                GlyphTextMetrics.centeredX("%02d".format(hour12), MATRIX_SIZE)
+            } else {
+                GlyphTextMetrics.centeredX("%02d:%02d".format(hour12, minute), MATRIX_SIZE)
+            }
 
             val timeObject = GlyphMatrixObject.Builder()
                 .setText(timeText)
-                .setPosition(timeX, 6)
+                .setPosition(timeX, if (narrow) 1 else 6)
                 .setBrightness(DIM_CLOCK_BRIGHTNESS)
                 .build()
-            val amPmObject = GlyphMatrixObject.Builder()
-                .setText(amPm)
-                .setPosition(GlyphTextMetrics.centeredX(amPm, MATRIX_SIZE), 15)
-                .setBrightness(DIM_CLOCK_BRIGHTNESS)
-                .build()
-            GlyphMatrixFrame.Builder()
-                .addTop(timeObject)
-                .addMid(amPmObject)
-                .build(applicationContext)
+            // El AM/PM solo cabe en la grande. En la pequeña la hora ya ocupa las dos filas y
+            // meterlo encima dejaría las tres cosas ilegibles en vez de dos legibles.
+            val builder = GlyphMatrixFrame.Builder().addTop(timeObject)
+            if (!narrow) {
+                builder.addMid(
+                    GlyphMatrixObject.Builder()
+                        .setText(amPm)
+                        .setPosition(GlyphTextMetrics.centeredX(amPm, MATRIX_SIZE), 15)
+                        .setBrightness(DIM_CLOCK_BRIGHTNESS)
+                        .build()
+                )
+            }
+            builder.build(applicationContext)
         }
 
         try {
@@ -264,7 +281,16 @@ class ClockBatteryToyService : Service(), SensorEventListener {
 
     private companion object {
         const val TAG = "ClockBatteryToyService"
-        const val MATRIX_SIZE = 25
+        /**
+         * El lado de la Matrix, preguntado al SDK.
+         *
+         * Fijo a 25 estaba bien mientras solo existía el Phone (3). El (4a) Pro trae una de 13,
+         * así que con el valor clavado se dibujaría fuera de la pantalla.
+         */
+        val MATRIX_SIZE: Int get() = Common.getDeviceMatrixLength()
+
+        /** A partir de este lado cabe la hora en una línea con AM/PM debajo. */
+        const val WIDE_MATRIX_SIZE = 20
 
         /** Lo que se queda el compañero en la Matrix al pedirlo con el botón. */
         const val PARTNER_VIEW_MS = 8_000L
