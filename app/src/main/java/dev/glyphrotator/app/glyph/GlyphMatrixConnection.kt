@@ -3,6 +3,7 @@ package dev.glyphrotator.app.glyph
 import android.content.ComponentName
 import android.content.Context
 import android.util.Log
+import com.nothing.ketchum.Common
 import com.nothing.ketchum.Glyph
 import com.nothing.ketchum.GlyphMatrixManager
 
@@ -33,13 +34,31 @@ object GlyphMatrixConnection {
 
     private var initStarted = false
 
+    /**
+     * El código del móvil en el que corremos.
+     *
+     * El SDK trae uno por modelo y el registro solo funciona con el correcto. Se pregunta en
+     * vez de suponerlo: es lo único que separa que la Matrix pinte de que se quede muerta.
+     */
+    private fun currentDeviceCode(): String = when {
+        Common.is25111p() -> Glyph.DEVICE_25111p
+        else -> Glyph.DEVICE_23112
+    }
+
     private val callback = object : GlyphMatrixManager.Callback {
         override fun onServiceConnected(componentName: ComponentName?) {
             val gmm = manager ?: return
+            // El registro va con el código del móvil que toque, no con el del Phone (3) a pelo.
+            //
+            // Con `DEVICE_23112` clavado, en un Phone (4a) Pro el registro devuelve false y la
+            // Matrix no vuelve a pintar nunca. Lo peor es cómo se manifiesta: la app abre, deja
+            // añadir GIFs y responde a todo, porque nada de eso depende de la conexión. Solo la
+            // pantalla de atrás se queda muerta, sin ningún error visible.
+            val deviceCode = currentDeviceCode()
             val registered = try {
-                gmm.register(Glyph.DEVICE_23112)
+                gmm.register(deviceCode)
             } catch (e: Exception) {
-                Log.e(TAG, "Fallo al registrar Glyph.DEVICE_23112", e)
+                Log.e(TAG, "Fallo al registrar $deviceCode", e)
                 false
             }
             isConnected = registered
