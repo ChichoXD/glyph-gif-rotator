@@ -73,4 +73,9 @@
     <string name="notification_channel_description">Indica que a rotação de GIFs na Glyph Matrix está a correr em segundo plano.</string>
     <string name="notification_title">Glyph GIF Rotator ativo</string>
     <string name="notification_text">Muda o design da Glyph Matrix ao bloquear e desbloquear o ecrã.</string>
+    <plurals name="toast_gifs_purged">
+        <item quantity="one">Removido %d design que já não se podia abrir (acontece ao reinstalar)</item>
+        <item quantity="other">Removidos %d designs que já não se podiam abrir (acontece ao reinstalar)</item>
+    </plurals>
+
 </resources>

@@ -202,6 +202,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshList() {
+        // Se limpian primero los que ya no se pueden abrir. Pasa al reinstalar: Android revoca
+        // los permisos sobre los archivos del usuario, pero la copia de seguridad restaura la
+        // lista, así que quedan entradas que apuntan a la nada. Sin esto, la Matrix se queda en
+        // negro y la lista llena, sin ninguna pista de qué está pasando.
+        val removed = repository.purgeUnreadable()
+        if (removed > 0) {
+            Toast.makeText(
+                this,
+                resources.getQuantityString(R.plurals.toast_gifs_purged, removed, removed),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
         val items = repository.getAll()
         adapter.submitList(items)
         binding.textEmpty.isVisible = items.isEmpty()

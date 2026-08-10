@@ -95,4 +95,9 @@
     <string name="button_language">App language</string>
     <string name="button_report">Report a bug</string>
 
+    <plurals name="toast_gifs_purged">
+        <item quantity="one">Removed %d design that could no longer be opened (happens after reinstalling)</item>
+        <item quantity="other">Removed %d designs that could no longer be opened (happens after reinstalling)</item>
+    </plurals>
+
 </resources>

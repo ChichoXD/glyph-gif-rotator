@@ -73,4 +73,9 @@
     <string name="notification_channel_description">Zeigt an, dass der GIF-Wechsel auf der Glyph Matrix im Hintergrund läuft.</string>
     <string name="notification_title">Glyph GIF Rotator läuft</string>
     <string name="notification_text">Wechselt das Design der Glyph Matrix beim Sperren und Entsperren.</string>
+    <plurals name="toast_gifs_purged">
+        <item quantity="one">%d Design entfernt, das nicht mehr geöffnet werden konnte (passiert nach einer Neuinstallation)</item>
+        <item quantity="other">%d Designs entfernt, die nicht mehr geöffnet werden konnten (passiert nach einer Neuinstallation)</item>
+    </plurals>
+
 </resources>

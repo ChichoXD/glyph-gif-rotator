@@ -78,24 +78,71 @@ class GifRepository(context: Context) {
             GifItem(id, Uri.parse(uriString), name)
         }
 
+    /**
+     * Añade un GIF **copiándolo dentro de la app**, no guardando una referencia al original.
+     *
+     * Guardar solo la URI parecía lo limpio y tenía un fallo grave: al desinstalar, Android
+     * revoca para siempre los permisos de lectura sobre los archivos del usuario, pero la copia
+     * de seguridad **sí** restaura la lista. Resultado: reinstalabas y la app tenía catorce GIFs
+     * apuntando a sitios que ya no podía abrir. No daba error, simplemente no se veía nada.
+     *
+     * Copiándolos, la lista y los archivos viajan juntos: sobreviven a reinstalar, a cambiar de
+     * móvil, y a que muevas o borres el original de la galería. Ocupan poco —son GIFs de unos
+     * pocos cientos de kilobytes— y a cambio dejan de depender de un permiso frágil.
+     *
+     * Si la copia falla se guarda la URI original como antes: mejor que funcione hoy y se rompa
+     * al reinstalar, que no funcione en absoluto.
+     */
     fun addGif(uri: Uri, displayName: String): GifItem {
-        try {
-            appContext.contentResolver.takePersistableUriPermission(
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-        } catch (e: SecurityException) {
-            Log.w(TAG, "No se pudo persistir el permiso de lectura para $uri", e)
+        val id = UUID.randomUUID().toString()
+        val stored = copyIntoApp(uri, id) ?: run {
+            try {
+                appContext.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (e: SecurityException) {
+                Log.w(TAG, "No se pudo persistir el permiso de lectura para $uri", e)
+            }
+            uri
         }
 
-        val id = UUID.randomUUID().toString()
         val ids = currentIds() + id
         prefs.edit()
             .putString(KEY_IDS, ids.joinToString(SEPARATOR))
-            .putString(uriKey(id), uri.toString())
+            .putString(uriKey(id), stored.toString())
             .putString(nameKey(id), displayName)
             .apply()
-        return GifItem(id, uri, displayName)
+        return GifItem(id, stored, displayName)
+    }
+
+    /** Copia el contenido a la carpeta privada de la app y devuelve su URI, o null si falla. */
+    private fun copyIntoApp(uri: Uri, id: String): Uri? = runCatching {
+        val folder = java.io.File(appContext.filesDir, DESIGNS_FOLDER).apply { mkdirs() }
+        val destination = java.io.File(folder, id)
+        appContext.contentResolver.openInputStream(uri)?.use { input ->
+            destination.outputStream().use { output -> input.copyTo(output) }
+        } ?: return@runCatching null
+        Uri.fromFile(destination)
+    }.onFailure { Log.w(TAG, "No se pudo copiar $uri dentro de la app", it) }.getOrNull()
+
+    /**
+     * Quita de la lista lo que ya no se puede abrir.
+     *
+     * Hace falta para los que ya tienen la app: sus listas apuntan a archivos del usuario cuyos
+     * permisos murieron al reinstalar, y sin esto se quedan con una lista llena de entradas
+     * muertas y una Matrix en negro, sin ninguna pista de qué pasa.
+     *
+     * Devuelve cuántas se quitaron, para poder avisar en vez de borrar en silencio.
+     */
+    fun purgeUnreadable(): Int {
+        val broken = getAll().filter { item ->
+            runCatching {
+                appContext.contentResolver.openInputStream(item.uri)?.use { true } ?: false
+            }.getOrDefault(false).not()
+        }
+        broken.forEach { removeGif(it.id) }
+        return broken.size
     }
 
     fun removeGif(id: String) {
@@ -135,6 +182,9 @@ class GifRepository(context: Context) {
     private fun nameKey(id: String) = "name_$id"
 
     private companion object {
+        /** Carpeta privada donde se copian los diseños importados. */
+        const val DESIGNS_FOLDER = "designs"
+
         const val TAG = "GifRepository"
         const val PREFS_NAME = "glyph_rotator_prefs"
         const val KEY_IDS = "gif_ids"
