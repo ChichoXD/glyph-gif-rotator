@@ -77,6 +77,11 @@
     <string name="notification_title">Glyph GIF Rotator running</string>
     <string name="notification_text">Changing the Glyph Matrix design when you lock or unlock the screen.</string>
     <!-- Bug reports -->
+    <string name="tab_status">Status</string>
+    <string name="tab_modes">Display</string>
+    <string name="tab_limits">Battery</string>
+    <string name="tab_designs">Designs</string>
+
     <string name="report_title">Report a bug</string>
     <string name="report_hint">Tell me what happened and what you expected. If you know how to reproduce it, say so — that helps most.</string>
     <string name="report_placeholder">Example: turning the clock on leaves the Matrix black until I restart the app.</string>

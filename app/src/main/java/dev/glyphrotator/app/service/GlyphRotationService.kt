@@ -88,12 +88,13 @@ class GlyphRotationService : Service() {
     @Volatile private var isShowingVinyl = false
     @Volatile private var isVinylStatic = false
     @Volatile private var isShowingClock = false
-    @Volatile private var isShowingWild = false
+
     @Volatile private var isShowingCharging = false
     @Volatile private var isPlugFlashActive = false
     @Volatile private var isExternalGlyphAppActive = false
     @Volatile private var isBluetoothFlashActive = false
-    @Volatile private var isCatchTestActive = false
+    /** Una animación puntual manda sobre el resto mientras dura (vista previa, Bluetooth). */
+    @Volatile private var isOneShotActive = false
 
 
     private var lastKnownForegroundPackage: String? = null
@@ -200,71 +201,13 @@ class GlyphRotationService : Service() {
         }
     }
 
-    /**
-     * Respaldo de ACTION_USER_PRESENT: en algunos teléfonos (Smart Lock / desbloqueo por
-     * confianza) ese evento nunca llega aunque el teléfono sí esté realmente desbloqueado.
-     * Comprobamos el estado real cada 1.5s y corregimos [isUnlocked] si se desincronizó.
-     */
-    /**
-     * Mira una vez por minuto, con la pantalla apagada, si aparece un Pokémon salvaje.
-     *
-     * Un minuto es el paso natural: la probabilidad se define por minutos acumulados, y
-     * comprobarlo más a menudo solo gastaría batería sin cambiar el resultado.
-     */
 
 
-    /**
-     * Paga el entrenamiento del compañero minuto a minuto, mientras la pantalla sigue apagada.
-     *
-     * Es lo que hace que la evolución **se pueda ver**. Antes toda la experiencia se entregaba
-     * de golpe al encender la pantalla, así que el momento de evolucionar caía siempre con el
-     * usuario mirando la pantalla de delante y la Matrix a la espalda: la animación se
-     * reproducía para nadie. Cobrándolo aquí, el nivel sube con el teléfono en reposo y la
-     * evolución ocurre justo cuando la Matrix es lo único encendido.
-     *
-     * Se cobra por diferencia sobre el total acumulado, no sumando un minuto cada vez, para
-     * que el extra de los 20 minutos siga cayendo donde le toca.
-     */
 
-    /**
-     * Resuelve desde la app al salvaje que esté esperando: o se atrapa, o se deja ir.
-     *
-     * Existe como salida de emergencia. La captura de verdad es la pulsación larga del botón
-     * físico, pero eso depende de que nuestro toy sea el que está seleccionado en los ajustes de
-     * Glyph; si no lo es, el botón no nos llega, y entonces se ve un Pokémon en la Matrix que no
-     * hay forma de atrapar ni de quitar. Con esto siempre queda una salida.
-     */
 
-    /**
-     * Comprueba si se ha desbloqueado algún logro y lo apunta.
-     *
-     * Sin animación en la Matrix a propósito: los logros caen justo cuando acaba de pasar otra
-     * cosa —una captura, una evolución— y una segunda animación encima taparía la que estabas
-     * mirando. Se apuntan y se ven en su pantalla.
-     */
 
-    /**
-     * El multiplicador de experiencia que dejó el día de ayer.
-     *
-     * Se recalcula en cada ronda en vez de guardarse: son tres lecturas de preferencias una vez
-     * por minuto, y así no hay que acordarse de invalidar nada cuando cambian los hábitos o el
-     * objetivo de agua.
-     */
 
-    /**
-     * Repinta los widgets que dependen del estado del juego.
-     *
-     * El periodo del sistema es de media hora como mínimo, así que sin este empujón una captura
-     * o una eclosión tardarían eso en aparecer en el escritorio y parecería que están rotos.
-     */
 
-    /**
-     * Incuba el huevo mientras el teléfono está en reposo, y lo abre cuando toca.
-     *
-     * Se incuba con el mismo criterio que se entrena: pantalla apagada. Así las dos cosas que
-     * progresan solas premian lo mismo —dejar el teléfono quieto— en vez de tirar cada una por
-     * su lado.
-     */
 
     /** Lo que el mundo real aporta ahora mismo a la aparición. */
 
@@ -577,15 +520,6 @@ class GlyphRotationService : Service() {
     // =========================================================================================
 
     /**
-     * Punto único de decisión de qué mostrar (o apagar). Prioridad: GlyphMuseum en primer
-     * plano (le dejamos la Matrix libre) > batería crítica > destello al conectar un
-     * dispositivo Bluetooth (funciona con pantalla apagada) > destello de 20s al enchufar/
-     * desenchufar (el líquido dura solo esos 20s, no mientras siga cargando) > música (vinilo,
-     * funciona con pantalla apagada) > no desbloqueado —pantalla apagada o en el lock screen—
-     * (reloj en reposo, si está activado) > desbloqueado de verdad (rotación al azar de
-     * GIFs/imágenes).
-     */
-    /**
      * Toma la Matrix para una animación puntual: para lo que hubiera y **olvida que lo había**.
      *
      * Lo segundo es lo importante. Antes solo se paraban los reproductores, y las banderas
@@ -603,7 +537,6 @@ class GlyphRotationService : Service() {
         isShowingClock = false
         isShowingVinyl = false
         isShowingCharging = false
-        isShowingWild = false
     }
 
     private fun updateDisplay(forceNewGif: Boolean = false) {
@@ -615,7 +548,7 @@ class GlyphRotationService : Service() {
             externalGlyphAppActive = isExternalGlyphAppActive,
             notificationFlashActive = NotificationFlash.isActive(),
             criticalBattery = isCriticalBattery,
-            catchTestActive = isCatchTestActive,
+            oneShotActive = isOneShotActive,
             bluetoothFlashActive = isBluetoothFlashActive,
             plugFlashActive = isPlugFlashActive,
             musicPlaying = musicState == MusicState.PLAYING,
@@ -624,7 +557,6 @@ class GlyphRotationService : Service() {
             clockEnabled = repository?.isClockEnabled == true,
             // Solo cuenta si además tenemos su sprite: sin él no habría nada que enseñar y la
             // Matrix se quedaría en negro tapando al reloj.
-            wildSpawnWaiting = false,
             vinylEnabled = repository?.isVinylEnabled != false,
             rotationEnabled = repository?.isRotationEnabled != false
         )
@@ -641,7 +573,7 @@ class GlyphRotationService : Service() {
                 refreshBatteryBrightness()
                 // Las animaciones puntuales (prueba de captura, destello de Bluetooth) ya
                 // están pintando ellas mismas: no las interrumpimos a media reproducción.
-                if (isCatchTestActive || isBluetoothFlashActive) return
+                if (isOneShotActive || isBluetoothFlashActive) return
                 if (isShowingVinyl || isShowingCharging || isShowingClock || forceNewGif) {
                     isShowingVinyl = false
                     isShowingCharging = false
@@ -683,16 +615,7 @@ class GlyphRotationService : Service() {
         }
     }
 
-    /**
-     * Al encender la pantalla, entrega al compañero de entrenamiento la experiencia
-     * correspondiente al rato que estuvo apagada (ver
-     * [dev.glyphrotator.app.pokemon.TrainingRules]). Si sube de nivel puede evolucionar solo.
-     */
 
-    /**
-     * Reproduce la secuencia de captura (círculo cerrándose + GIF real de la pokeball) una
-     * vez, para poder probarla desde el botón de la app sin depender de que "salga" nada.
-     */
     /**
      * Muestra un diseño concreto en la Matrix durante unos segundos, para poder verlo sin
      * esperar a que la rotación lo elija al azar. Reutiliza el mismo hueco que el destello
@@ -741,28 +664,8 @@ class GlyphRotationService : Service() {
         }
     }
 
-    /**
-     * Captura de un Pokémon concreto: se le ve moverse, la bola se cierra encima hasta que
-     * desaparece dentro, y después la pokeball se agita.
-     *
-     * Si no hay sprite de esa especie se cae a la versión de siempre (círculo a secas), que
-     * es lo que había antes de que existieran los sprites.
-     */
 
-    /**
-     * Enseña el huevo en una de sus tres fases, en bucle, para poder compararlas.
-     *
-     * Comparte el hueco de la captura porque, igual que ella, es una animación que manda
-     * mientras dura: si el carrusel se colara por encima no se podría juzgar nada.
-     */
 
-    /**
-     * La eclosión: el huevo sacudiéndose, el destello al romperse y el recién nacido.
-     *
-     * Ocurre con la pantalla apagada, que es cuando se incuba, así que la Matrix es lo único
-     * encendido y se ve entera. La vibración va acelerando con las sacudidas para que se note
-     * en la mano aunque tengas el móvil boca abajo.
-     */
     /**
      * Espera a que la Matrix esté conectada, hasta [timeoutMs].
      *
@@ -803,25 +706,8 @@ class GlyphRotationService : Service() {
     }
 
 
-    /**
-     * Primero el Pokémon suelto, y después el mismo Pokémon visto por la abertura de la bola
-     * mientras se cierra. Sigue animándose durante el cierre: si se congelara, parecería que
-     * lo que se traga la bola es una foto.
-     */
 
 
-    /**
-     * Las tres sacudidas y el clic. Se dibujan aquí en vez de usar el GIF de la pokeball
-     * porque así el balanceo y el destello de cada latido van al mismo compás que el cierre
-     * anterior; con un GIF de duración fija no habría forma de sincronizarlos.
-     */
-    /**
-     * La pokeball: la animación de Glyph Museum que trajo el usuario, tal cual la diseñó su
-     * autor —caída, sacudidas y confirmación—, mandando el brillo de cada LED directamente.
-     *
-     * Si el archivo faltara o viniera roto se cae a la versión dibujada por código, para que
-     * la captura nunca se quede sin animación.
-     */
 
     /**
      * Fuerza el líquido de batería en pantalla 20s al detectar que se enchufó/desenchufó
@@ -833,9 +719,9 @@ class GlyphRotationService : Service() {
         plugFlashJob?.cancel()
         isPlugFlashActive = true
         // Si hay una captura en marcha no se pinta encima: el decisor ya le da prioridad, pero
-        // esta llamada se lo saltaba y el líquido aparecía sobre la pokeball. Se deja la
-        // bandera puesta y al acabar la captura updateDisplay() lo saca si aún toca.
-        if (!isCatchTestActive) startChargingLiquid(instant = !justPlugged)
+        // esta llamada se lo saltaba y el líquido aparecía encima. Se deja la bandera puesta
+        // y al acabar, updateDisplay() lo saca si aún toca.
+        if (!isOneShotActive) startChargingLiquid(instant = !justPlugged)
         plugFlashJob = serviceScope.launch {
             delay(PLUG_FLASH_MS)
             isPlugFlashActive = false
@@ -895,11 +781,10 @@ class GlyphRotationService : Service() {
         isShowingVinyl = false
         isVinylStatic = false
         isShowingClock = false
-        isShowingWild = false
         isShowingCharging = false
         bluetoothFlashJob?.cancel()
         isBluetoothFlashActive = false
-        isCatchTestActive = false
+        isOneShotActive = false
     }
 
     private fun refreshBatteryBrightness() {
@@ -1075,10 +960,9 @@ class GlyphRotationService : Service() {
         private val BEDTIME_HOURS = 1..7
 
         /** Nivel con el que llega un Pokémon salvaje. */
-        private const val WILD_MIN_LEVEL = 3
-        private const val WILD_MAX_LEVEL = 18
+        
+        
 
-        /** La animación de la pokeball, exportada de Glyph Museum. */
         private const val PREVIEW_MS = 15_000L
         private const val ACTION_REFRESH = "dev.glyphrotator.app.action.REFRESH"
         /**

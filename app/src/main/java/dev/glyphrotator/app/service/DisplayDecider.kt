@@ -31,7 +31,8 @@ data class DisplayInputs(
     /** Acaba de entrar una notificación y el sistema está pintando su animación. */
     val notificationFlashActive: Boolean = false,
     val criticalBattery: Boolean = false,
-    val catchTestActive: Boolean = false,
+    /** Una animación puntual en curso: manda sobre el carrusel mientras dura. */
+    val oneShotActive: Boolean = false,
     val bluetoothFlashActive: Boolean = false,
     val plugFlashActive: Boolean = false,
     val musicPlaying: Boolean = false,
@@ -39,7 +40,6 @@ data class DisplayInputs(
     val screenUnlocked: Boolean = false,
     val clockEnabled: Boolean = false,
     /** Hay un Pokémon salvaje esperando. */
-    val wildSpawnWaiting: Boolean = false,
     /** El disco de vinilo mientras suena música. */
     val vinylEnabled: Boolean = true,
     /**
@@ -74,7 +74,7 @@ object DisplayDecider {
 
         // Animaciones puntuales que el usuario acaba de disparar. Van por encima del
         // interruptor principal: pedir ver un diseño concreto es una orden explícita.
-        inputs.catchTestActive -> DisplayMode.CAROUSEL
+        inputs.oneShotActive -> DisplayMode.CAROUSEL
         inputs.bluetoothFlashActive -> DisplayMode.CAROUSEL
 
         // Con la rotación apagada no se enciende nada por su cuenta. El servicio puede seguir

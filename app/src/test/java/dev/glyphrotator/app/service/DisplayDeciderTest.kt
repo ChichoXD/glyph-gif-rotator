@@ -131,7 +131,7 @@ class DisplayDeciderTest {
     @Test
     fun `la prueba de captura no se interrumpe por musica ni por el reloj`() {
         val inputs = DisplayInputs(
-            catchTestActive = true,
+            oneShotActive = true,
             musicPlaying = true,
             screenUnlocked = false,
             clockEnabled = true
@@ -147,7 +147,7 @@ class DisplayDeciderTest {
 
     @Test
     fun `pero la bateria critica corta hasta las animaciones puntuales`() {
-        val inputs = DisplayInputs(criticalBattery = true, catchTestActive = true, bluetoothFlashActive = true)
+        val inputs = DisplayInputs(criticalBattery = true, oneShotActive = true, bluetoothFlashActive = true)
         assertEquals(DisplayMode.OFF, decide(inputs))
     }
 
@@ -206,7 +206,7 @@ class DisplayDeciderTest {
         )
         assertEquals(
             DisplayMode.CAROUSEL,
-            decide(DisplayInputs(rotationEnabled = false, catchTestActive = true))
+            decide(DisplayInputs(rotationEnabled = false, oneShotActive = true))
         )
     }
 
