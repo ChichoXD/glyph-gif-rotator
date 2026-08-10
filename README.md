@@ -1,5 +1,9 @@
 # Glyph GIF Rotator
 
+[![Downloads](https://img.shields.io/github/downloads/ChichoXD/glyph-gif-rotator/total?style=flat-square&label=downloads&color=black)](../../releases)
+[![Latest release](https://img.shields.io/github/v/release/ChichoXD/glyph-gif-rotator?style=flat-square&color=black)](../../releases/latest)
+[![License](https://img.shields.io/github/license/ChichoXD/glyph-gif-rotator?style=flat-square&color=black)](LICENSE)
+
 Turn the Glyph Matrix on the back of your **Nothing Phone (3)** into a rotating gallery of your
 own GIFs — and let it react to what the phone is actually doing.
 
