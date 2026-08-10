@@ -87,6 +87,7 @@
     <string name="report_empty">Write what happened first.</string>
     <string name="report_no_browser">No browser available to open GitHub.</string>
     <string name="report_no_email">No email app configured.</string>
+    <string name="button_language">App language</string>
     <string name="button_report">Report a bug</string>
 
 </resources>

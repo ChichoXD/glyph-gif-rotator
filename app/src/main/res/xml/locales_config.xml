@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Los idiomas que la app tiene traducidos.
+
+    Declararlos aquí es lo que hace que Android enseñe la opción "Idioma de la aplicación" en sus
+    propios ajustes, con solo estos cinco en la lista. Sin este archivo no aparece la opción y el
+    usuario se queda con el idioma del sistema sin poder cambiarlo solo para esta app.
+
+    Se hace así y no con un selector propio a propósito: el del sistema recuerda la elección,
+    sobrevive a las actualizaciones y se ve igual que en el resto de apps del teléfono.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android"
+    android:defaultLocale="es">
+    <locale android:name="es" />
+    <locale android:name="en" />
+    <locale android:name="de" />
+    <locale android:name="fr" />
+    <locale android:name="pt" />
+</locale-config>

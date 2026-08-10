@@ -48,6 +48,7 @@
     <string name="report_empty">Schreib zuerst, was passiert ist.</string>
     <string name="report_no_browser">Kein Browser gefunden, um GitHub zu öffnen.</string>
     <string name="report_no_email">Keine E-Mail-App eingerichtet.</string>
+    <string name="button_language">App-Sprache</string>
     <string name="button_report">Fehler melden</string>
 
     <string name="section_state">01 — Status</string>

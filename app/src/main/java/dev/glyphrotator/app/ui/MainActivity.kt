@@ -118,6 +118,23 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ReportActivity::class.java))
         }
 
+        // Lleva a la pantalla del sistema, no a un selector propio: así la elección la recuerda
+        // Android, sobrevive a las actualizaciones y se ve igual que en el resto de apps.
+        binding.buttonLanguage.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
+                .setData(Uri.parse("package:$packageName"))
+            runCatching { startActivity(intent) }
+                .onFailure {
+                    // Algunas ROMs no exponen esa pantalla; se cae a los ajustes de la app.
+                    runCatching {
+                        startActivity(
+                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setData(Uri.parse("package:$packageName"))
+                        )
+                    }
+                }
+        }
+
         setupBatteryThresholdInputs()
         setupBluetoothGifPicker()
 

@@ -48,6 +48,7 @@
     <string name="report_empty">Écris d\'abord ce qui s\'est passé.</string>
     <string name="report_no_browser">Aucun navigateur pour ouvrir GitHub.</string>
     <string name="report_no_email">Aucune app e-mail configurée.</string>
+    <string name="button_language">Langue de l\'app</string>
     <string name="button_report">Signaler un bug</string>
 
     <string name="section_state">01 — État</string>

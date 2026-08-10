@@ -47,6 +47,7 @@
     <string name="report_empty">Escribe antes qué ha pasado.</string>
     <string name="report_no_browser">No hay navegador para abrir GitHub.</string>
     <string name="report_no_email">No hay ninguna app de correo configurada.</string>
+    <string name="button_language">Idioma de la app</string>
     <string name="button_report">Reportar un fallo</string>
 
     <!-- Logros -->
