@@ -287,7 +287,18 @@ class ClockBatteryToyService : Service(), SensorEventListener {
          * Fijo a 25 estaba bien mientras solo existía el Phone (3). El (4a) Pro trae una de 13,
          * así que con el valor clavado se dibujaría fuera de la pantalla.
          */
-        val MATRIX_SIZE: Int get() = Common.getDeviceMatrixLength()
+        /**
+         * El lado de la Matrix, preguntado al SDK con red de seguridad.
+         *
+         * El `takeIf` no es paranoia: `liquidHeights` se crea al construir el servicio, y si en
+         * ese instante el SDK todavía no está listo devolvería 0. Un `FloatArray(0)` no se
+         * arregla solo después — el líquido de la batería se quedaría roto para siempre sin dar
+         * ningún error. Cayendo a 25 se comporta como antes en el Phone (3), que es lo probado.
+         */
+        val MATRIX_SIZE: Int
+            get() = Common.getDeviceMatrixLength().takeIf { it > 0 } ?: FALLBACK_MATRIX_SIZE
+
+        private const val FALLBACK_MATRIX_SIZE = 25
 
         /** A partir de este lado cabe la hora en una línea con AM/PM debajo. */
         const val WIDE_MATRIX_SIZE = 20
