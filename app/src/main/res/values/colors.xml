@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta Nothing: negro puro, blanco, y el rojo solo como acento puntual -->
+    <color name="glyph_black">#000000</color>
+    <color name="glyph_surface">#0A0A0A</color>
+    <color name="glyph_card">#121212</color>
+    <color name="glyph_red">#D71921</color>
+    <color name="glyph_white">#FFFFFF</color>
+    <color name="glyph_grey">#8A8A8A</color>
+    <color name="glyph_divider">#242424</color>
+</resources>

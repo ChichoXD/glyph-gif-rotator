@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Pixel art "XD" (11x5 grid, cada pixel de 4.5x4.5, centrado en el área segura) -->
+    <group>
+        <!-- X: fila 0 -->
+        <path android:fillColor="#FF3B30" android:pathData="M29.25,42.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FF3B30" android:pathData="M47.25,42.75h4.5v4.5h-4.5z" />
+        <!-- X: fila 1 -->
+        <path android:fillColor="#FF3B30" android:pathData="M33.75,47.25h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FF3B30" android:pathData="M42.75,47.25h4.5v4.5h-4.5z" />
+        <!-- X: fila 2 -->
+        <path android:fillColor="#FF3B30" android:pathData="M38.25,51.75h4.5v4.5h-4.5z" />
+        <!-- X: fila 3 -->
+        <path android:fillColor="#FF3B30" android:pathData="M33.75,56.25h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FF3B30" android:pathData="M42.75,56.25h4.5v4.5h-4.5z" />
+        <!-- X: fila 4 -->
+        <path android:fillColor="#FF3B30" android:pathData="M29.25,60.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FF3B30" android:pathData="M47.25,60.75h4.5v4.5h-4.5z" />
+
+        <!-- D: fila 0 -->
+        <path android:fillColor="#FFFFFF" android:pathData="M56.25,42.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M60.75,42.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M65.25,42.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M69.75,42.75h4.5v4.5h-4.5z" />
+        <!-- D: fila 1 -->
+        <path android:fillColor="#FFFFFF" android:pathData="M56.25,47.25h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M74.25,47.25h4.5v4.5h-4.5z" />
+        <!-- D: fila 2 -->
+        <path android:fillColor="#FFFFFF" android:pathData="M56.25,51.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M74.25,51.75h4.5v4.5h-4.5z" />
+        <!-- D: fila 3 -->
+        <path android:fillColor="#FFFFFF" android:pathData="M56.25,56.25h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M74.25,56.25h4.5v4.5h-4.5z" />
+        <!-- D: fila 4 -->
+        <path android:fillColor="#FFFFFF" android:pathData="M56.25,60.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M60.75,60.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M65.25,60.75h4.5v4.5h-4.5z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M69.75,60.75h4.5v4.5h-4.5z" />
+    </group>
+</vector>

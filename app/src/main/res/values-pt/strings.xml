@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Português. O espanhol é o idioma padrão: se faltar algum texto aqui, aparece em espanhol em
+    vez de quebrar a aplicação.
+
+    Os marcadores (%1$d, %2$s …) têm de ficar na mesma ordem do original — mudá-los compila mas
+    rebenta em tempo de execução.
+-->
+<resources>
+    <string name="app_name">Glyph GIF Rotator</string>
+    <string name="main_title">Glyph GIF Rotator</string>
+    <string name="main_subtitle">Mostra os teus GIFs animados na Glyph Matrix — um diferente sempre que bloqueias ou desbloqueias.</string>
+    <string name="label_rotation_switch">Rotação automática</string>
+    <string name="button_turn_off_now">Desligar a Matrix agora</string>
+    <string name="button_refresh">Atualizar agora</string>
+    <string name="button_fix_battery">Remover restrição de bateria</string>
+    <string name="battery_warning">⚠ O Android pode fechar a app em segundo plano e parar a rotação enquanto dormes. Remove a restrição de bateria.</string>
+    <string name="toast_refreshed">Estado atualizado.</string>
+    <string name="toast_preview_showing">%1$s a aparecer na Matrix…</string>
+    <string name="toast_preview_needs_rotation">Ativa a rotação para ver designs na Matrix.</string>
+    <string name="toast_battery_already_ok">A app já não tem restrição de bateria.</string>
+    <string name="button_add_gif">Adicionar GIFs ou imagens</string>
+    <string name="empty_state">Ainda não adicionaste nenhum GIF ou imagem.\nToca em \"Adicionar GIFs ou imagens\" para começar.</string>
+    <string name="content_desc_gif_preview">Pré-visualização do GIF ou imagem</string>
+    <string name="content_desc_remove_gif">Remover este GIF ou imagem</string>
+    <string name="toast_add_gif_first">Adiciona pelo menos um GIF ou imagem antes de ativar a rotação.</string>
+    <string name="toast_rotation_disabled_no_gifs">Rotação desativada: já não há GIFs nem imagens na lista.</string>
+    <string name="toast_matrix_busy">Outra app Glyph está a ocupar a Matrix neste momento.</string>
+    <string name="toast_unsupported_device">Este dispositivo não tem uma Glyph Matrix compatível.</string>
+    <string name="toast_request_notification_access">Para o disco de vinil com música, concede acesso às notificações.</string>
+    <string name="toast_request_usage_access">Para libertar a Matrix quando abres o GlyphMuseum, concede \"acesso ao uso\".</string>
+    <string name="toast_invalid_battery_thresholds">A percentagem de desligar tem de ser menor do que a de escurecer.</string>
+    <string name="label_clock_switch">Relógio com o ecrã desligado</string>
+    <string name="label_vinyl_switch">Disco de vinil enquanto toca música</string>
+
+    <string name="tab_status">Estado</string>
+    <string name="tab_modes">O que aparece</string>
+    <string name="tab_limits">Bateria</string>
+    <string name="tab_designs">Designs</string>
+
+    <string name="report_title">Reportar um erro</string>
+    <string name="report_hint">Conta o que aconteceu e o que esperavas. Se souberes como repetir, diz — é o que mais ajuda.</string>
+    <string name="report_placeholder">Exemplo: ao ativar o relógio, a Matrix fica preta até reiniciar a app.</string>
+    <string name="report_device_note">Será enviado junto com: %1$s</string>
+    <string name="report_github">Abrir no GitHub</string>
+    <string name="report_email">Enviar por e-mail</string>
+    <string name="report_email_subject">Erro no Glyph GIF Rotator</string>
+    <string name="report_empty">Escreve primeiro o que aconteceu.</string>
+    <string name="report_no_browser">Não há navegador para abrir o GitHub.</string>
+    <string name="report_no_email">Não há nenhuma app de e-mail configurada.</string>
+    <string name="button_report">Reportar um erro</string>
+
+    <string name="section_state">01 — Estado</string>
+    <string name="section_modes">O que se mostra</string>
+    <string name="section_limits">Limites e Bluetooth</string>
+    <string name="section_battery">02 — Bateria</string>
+    <string name="section_bluetooth">03 — Bluetooth</string>
+    <string name="section_designs">04 — Designs</string>
+
+    <string name="label_dim_threshold">Escurecer abaixo de %</string>
+    <string name="label_critical_threshold">Desligar abaixo de %</string>
+
+    <string name="button_pick_bluetooth_gif">Escolher design Bluetooth</string>
+    <string name="label_bluetooth_gif_none">Nenhum escolhido (não acontece nada ao ligar auscultadores)</string>
+    <string name="label_bluetooth_gif_selected">Aparece ao ligar: %1$s (toca para remover)</string>
+
+    <string name="toy_name">Relógio + Bateria</string>
+    <string name="toy_summary">Relógio com a hora; mantém premido o botão Glyph para ver a bateria como líquido.</string>
+    <string name="credit_text">by @ChichoXD</string>
+
+    <string name="notification_channel_name">Rotação da Glyph Matrix</string>
+    <string name="notification_channel_description">Indica que a rotação de GIFs na Glyph Matrix está a correr em segundo plano.</string>
+    <string name="notification_title">Glyph GIF Rotator ativo</string>
+    <string name="notification_text">Muda o design da Glyph Matrix ao bloquear e desbloquear o ecrã.</string>
+</resources>

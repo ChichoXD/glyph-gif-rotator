@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Fondo del widget: negro y bien redondeado, **sin borde**.
+
+    Antes llevaba una línea gris alrededor. En la app tiene sentido —separa una tarjeta de la
+    siguiente—, pero en el escritorio cada widget ya está separado por su propio hueco, así que
+    el borde solo dibujaba un recuadro alrededor de todo y hacía que se leyera como una caja
+    pegada encima del fondo en vez de como parte de la pantalla.
+
+    El radio sube a 28dp para acompañar la forma redondeada de los iconos del lanzador.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/glyph_card" />
+    <corners android:radius="28dp" />
+</shape>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginTop="8dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/glyph_divider"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imageGifPreview"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/glyph_card"
+            android:contentDescription="@string/content_desc_gif_preview"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/textGifName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="middle"
+            android:fontFamily="monospace"
+            android:maxLines="2"
+            android:textColor="@color/glyph_white"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@id/imageGifPreview"
+            app:layout_constraintEnd_toStartOf="@id/buttonRemoveGif"
+            app:layout_constraintTop_toTopOf="@id/imageGifPreview"
+            app:layout_constraintBottom_toBottomOf="@id/imageGifPreview"
+            tools:text="mi_animacion.gif" />
+
+        <ImageButton
+            android:id="@+id/buttonRemoveGif"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_desc_remove_gif"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/glyph_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageGifPreview"
+            app:layout_constraintBottom_toBottomOf="@id/imageGifPreview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+        Los diálogos, con el mismo lenguaje que el resto: negro, esquinas muy redondeadas y un
+        borde fino. El de serie sale gris azulado y con esquinas pequeñas — se nota que es de
+        Material y no de esta app, que es justo lo que había que quitar.
+    -->
+    <style name="Nothing.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="colorSurface">@color/glyph_card</item>
+        <item name="colorOnSurface">@color/glyph_white</item>
+        <item name="android:textColorPrimary">@color/glyph_white</item>
+        <item name="android:textColorSecondary">@color/glyph_grey</item>
+        <item name="colorPrimary">@color/glyph_white</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Nothing.Dialog.Title</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Nothing.Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Nothing.Dialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Nothing.Dialog.Button</item>
+    </style>
+
+    <style name="Nothing.Dialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Nothing.Dialog.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Theme.GlyphGifRotator" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="alertDialogTheme">@style/Nothing.Dialog</item>
+        <item name="materialAlertDialogTheme">@style/Nothing.Dialog</item>
+        <item name="colorPrimary">@color/glyph_red</item>
+        <item name="colorOnPrimary">@color/glyph_white</item>
+        <item name="android:colorBackground">@color/glyph_black</item>
+        <item name="colorSurface">@color/glyph_surface</item>
+        <item name="colorOnSurface">@color/glyph_white</item>
+        <item name="colorOutline">@color/glyph_divider</item>
+        <item name="android:statusBarColor">@color/glyph_black</item>
+        <item name="android:navigationBarColor">@color/glyph_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Estilos base vacíos: los nombres con punto heredan implícitamente de ellos -->
+    <style name="Nothing" />
+    <style name="Nothing.Button" />
+
+    <!-- Etiqueta de sección: monoespaciada, mayúsculas y muy espaciada, estilo Nothing -->
+    <style name="Nothing.SectionLabel">
+        <item name="android:textColor">@color/glyph_grey</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.25</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Texto secundario/descriptivo -->
+    <!-- Tarjeta contenedora: borde fino sobre negro, sin sombra. -->
+    <style name="Nothing.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/glyph_surface</item>
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/glyph_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Separador dentro de una tarjeta. -->
+    <style name="Nothing.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/glyph_divider</item>
+    </style>
+
+    <style name="Nothing.Caption">
+        <item name="android:textColor">@color/glyph_grey</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:lineSpacingMultiplier">1.25</item>
+    </style>
+
+    <!-- Fila de ajuste con interruptor -->
+    <style name="Nothing.SwitchRow" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:minHeight">52dp</item>
+    </style>
+
+    <!-- Botón principal: relleno rojo, texto monoespaciado en mayúsculas -->
+    <style name="Nothing.Button.Filled" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="cornerRadius">26dp</item>
+    </style>
+
+    <!-- Botón secundario: solo contorno fino, sin relleno -->
+    <style name="Nothing.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="strokeColor">@color/glyph_divider</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+</resources>

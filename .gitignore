@@ -1,0 +1,17 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+**/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# SDK de Nothing: es un binario propietario y no se redistribuye.
+# Descárgalo tú desde el repositorio oficial — ver app/libs/README.md.
+app/libs/*.aar
+app/libs/*.jar
+!app/libs/README.md

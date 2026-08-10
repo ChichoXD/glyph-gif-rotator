@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Fondo de los diálogos: negro de tarjeta, esquinas muy redondeadas y un borde fino.
+
+    Aquí el borde **sí** hace falta, al revés que en los widgets. Un diálogo aparece flotando
+    sobre la pantalla que ya estabas mirando, y sin una línea que lo separe se confunde con el
+    fondo: parece que el texto ha aparecido encima de la lista en vez de en una ventana aparte.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/glyph_card" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/glyph_divider" />
+    <corners android:radius="28dp" />
+</shape>

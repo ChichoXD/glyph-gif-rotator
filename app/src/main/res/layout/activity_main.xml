@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Pantalla principal, reestructurada en tarjetas.
+
+    Antes era una lista larga donde los ajustes que se tocan una vez al año (los umbrales de
+    batería) ocupaban lo mismo que el interruptor que se usa a diario. Ahora hay una jerarquía:
+    arriba el estado y el mando principal, en medio lo que se enciende y se apaga, y al final
+    los diseños, que es lo que más ocupa. Cada bloque va en su tarjeta para que el ojo separe
+    las cosas sin tener que leer las cabeceras.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/glyph_black"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
+
+        <!-- Cabecera -->
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.14"
+            android:text="@string/main_title"
+            android:textAllCaps="true"
+            android:textColor="@color/glyph_white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/main_subtitle" />
+
+        <!--
+            Las pestañas y el carrusel horizontal.
+
+            El contenido de cada una vive más abajo, dentro de un contenedor oculto: la actividad
+            los saca de ahí y se los pasa al carrusel al arrancar. Se hace así para que cada vista
+            siga siendo la misma de siempre —los interruptores, los botones, la lista— y el
+            código que ya los maneja no tenga que cambiar ni una línea por haberlos repartido.
+        -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:tabGravity="start"
+            app:tabIndicatorColor="@color/glyph_white"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/glyph_white"
+            app:tabTextColor="@color/glyph_grey" />
+
+        <View
+            style="@style/Nothing.Divider"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/pageHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="40dp">
+
+        <!-- ============================================================
+             Mando principal: lo único que se toca a diario
+             ============================================================ -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Nothing.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchRotation"
+                    style="@style/Nothing.SwitchRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_rotation_switch" />
+
+                <View
+                    style="@style/Nothing.Divider"
+                    android:layout_marginTop="14dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonRefresh"
+                        style="@style/Nothing.Button.Outlined"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:text="@string/button_refresh" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonTurnOff"
+                        style="@style/Nothing.Button.Outlined"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:text="@string/button_turn_off_now" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Aviso de batería: solo aparece si Android puede matar el servicio -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBatteryWarning"
+            style="@style/Nothing.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            app:strokeColor="@color/glyph_red">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:id="@+id/textBatteryWarning"
+                    style="@style/Nothing.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_warning"
+                    android:textColor="@color/glyph_white" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonFixBattery"
+                    style="@style/Nothing.Button.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/button_fix_battery" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--
+            Reportar un fallo, en la primera pestaña y no escondido en un menú: quien encuentra
+            algo raro lo reporta en ese momento o no lo reporta nunca.
+        -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonReport"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/button_report" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageModes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="40dp">
+
+        <!-- ============================================================
+             Qué se muestra en la Matrix
+             ============================================================ -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/section_modes" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Nothing.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="6dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchClock"
+                    style="@style/Nothing.SwitchRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_clock_switch" />
+
+                <View style="@style/Nothing.Divider" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchVinyl"
+                    style="@style/Nothing.SwitchRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_vinyl_switch" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageLimits"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="40dp">
+
+        <!-- ============================================================
+             Batería y Bluetooth: se tocan una vez y se olvidan
+             ============================================================ -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/section_limits" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Nothing.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:hint="@string/label_dim_threshold">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputDimThreshold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:inputType="number"
+                            android:maxLength="3" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:hint="@string/label_critical_threshold">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputCriticalThreshold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:inputType="number"
+                            android:maxLength="3" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <View
+                    style="@style/Nothing.Divider"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:id="@+id/textBluetoothGifSelected"
+                    style="@style/Nothing.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/label_bluetooth_gif_none" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPickBluetoothGif"
+                    style="@style/Nothing.Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/button_pick_bluetooth_gif" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageDesigns"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="40dp">
+
+        <!-- ============================================================
+             Diseños: lo que más ocupa, al final
+             ============================================================ -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/section_designs" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddGif"
+            style="@style/Nothing.Button.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/button_add_gif" />
+
+        <TextView
+            android:id="@+id/textEmpty"
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="@string/empty_state" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerGifs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_gif" />
+
+        <TextView
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="@string/credit_text"
+            android:textColor="@color/glyph_grey" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+</LinearLayout>
