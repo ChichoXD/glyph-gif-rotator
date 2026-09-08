@@ -56,6 +56,14 @@ artefacts, no guessing at contrast.
 Glyph Museum is an independent community project by [pauwma](https://pauwma.com/projects/glyph-museum),
 not affiliated with this one and not affiliated with Nothing.
 
+**The designs belong to the people who drew them.** Glyph Museum's terms
+([section 3](https://glyphmuseum.com/developers)) ask that the author is credited and the original
+post linked wherever a design is shown. This app never handles that side of it: it has no access to
+the catalogue, ships no designs of its own, and only opens image files you already saved to your
+phone through the system file picker — the file is copied byte for byte, so any metadata it carries
+survives untouched. If that ever changes — bundled designs, an in-app browser, a share button —
+author and link have to travel with the design.
+
 ---
 
 ## Two things worth knowing
@@ -134,8 +142,22 @@ request is enough.
 
 ## Credits
 
-The **liquid battery** and the **spinning vinyl** aren't original ideas — both were found online
-and reimplemented here.
+### Spinning vinyl — Glyph Beat
+
+The 8 frames of the spinning vinyl are **taken verbatim** from `VinylTheme.kt` in
+**[Glyph Beat](https://github.com/pauwma/GlyphBeat)** by [pauwma](https://pauwma.com), used under
+the MIT license. The frame data is the original author's work, not a reimplementation — an earlier
+version of this README said otherwise, and that was wrong. See [NOTICE](NOTICE) for the full
+copyright notice.
+
+### Liquid battery
+
+The liquid battery is **not an original idea** — it was seen elsewhere on the Glyph Matrix and
+rebuilt here. Unlike the vinyl, no code or data was copied: the tilt simulation in
+[`LiquidPhysics.kt`](app/src/main/java/dev/glyphrotator/app/glyph/LiquidPhysics.kt) is this
+project's own. If you recognise it as yours, open an issue and it gets credited here.
+
+### Nothing
 
 The Glyph Matrix SDK belongs to Nothing Technology Limited and is used, not redistributed.
 
