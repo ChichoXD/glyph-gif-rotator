@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El tile que lleva el icono de cada sección de ajustes.
+
+    Misma forma y mismo radio que el de las pestañas, pero **sin estados**: aquí no hay nada
+    seleccionado, solo se está titulando. Que compartan geometría es lo que hace que la app se
+    lea como un mismo aparato en vez de como pantallas sueltas.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/glyph_card" />
+    <stroke
+        android:width="@dimen/hairline"
+        android:color="@color/glyph_border" />
+    <corners android:radius="@dimen/tab_tile_radius" />
+</shape>

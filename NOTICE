@@ -12,6 +12,8 @@ The 8 vinyl animation frames in
 app/src/main/java/dev/glyphrotator/app/glyph/VinylBeatAnimation.kt
 are taken verbatim from VinylTheme.kt in Glyph Beat, and the shaped-to-grid
 conversion follows the same approach used there for the Nothing Phone (3).
+These frames are used only on the Nothing Phone (3). On other matrix sizes the
+same file generates a different vinyl with this project's own code.
 
 Licensed under the MIT License:
 
@@ -38,3 +40,14 @@ Glyph Matrix SDK
 Copyright (c) Nothing Technology Limited
 
 Used as a dependency, not redistributed in this repository.
+
+--------------------------------------------------------------------------------
+Pokémon
+Pokémon and the names, sprites and sounds of the Pokémon characters are
+trademarks and property of Nintendo, Game Freak, Creatures and The Pokémon
+Company.
+
+The sprite files in app/src/main/assets/sprites/ and the cry files in
+app/src/main/res/raw/ are not the work of this project and are not covered by
+this project's MIT license. This is an unofficial fan project, not affiliated
+with or endorsed by any of the companies above.

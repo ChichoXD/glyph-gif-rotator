@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La cápsula de los huevos: squircle con el contorno punteado.
+
+    Punteado y no continuo a propósito. Un contorno entero dice "esto es un módulo más", como la
+    tarjeta de entrenamiento o la del equipo; el punteado dice **"esto está a medias"**, que es
+    justo lo que es un huevo: algo que todavía no ha llegado. Es la misma idea que el contorno
+    punteado del tile seleccionado en la referencia, usada aquí para otra cosa que también está en
+    curso.
+
+    El trazo va en `glyph_border` y no en blanco: es un separador de módulos, no un dato.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@android:color/transparent" />
+    <corners android:radius="@dimen/tab_tile_radius" />
+    <stroke
+        android:width="@dimen/hairline"
+        android:color="@color/glyph_border"
+        android:dashGap="4dp"
+        android:dashWidth="3dp" />
+</shape>

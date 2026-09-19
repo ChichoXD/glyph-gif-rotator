@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Una pestaña: tile con icono arriba, etiqueta debajo.
+
+    `duplicateParentState` en los dos hijos es lo que hace que funcione. TabLayout marca como
+    seleccionada **la raíz** de la vista personalizada y nada más; sin esto, los selectores de
+    color del icono y de la etiqueta no llegan a enterarse nunca y la fila entera se queda gris.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/tabIcon"
+        android:layout_width="@dimen/tab_tile"
+        android:layout_height="@dimen/tab_tile"
+        android:background="@drawable/bg_tab_tile"
+        android:duplicateParentState="true"
+        android:padding="@dimen/space_m"
+        android:scaleType="fitCenter"
+        android:tint="@color/tab_icon_tint" />
+
+    <TextView
+        android:id="@+id/tabLabel"
+        style="@style/Nothing.TabLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_s"
+        android:duplicateParentState="true" />
+
+</LinearLayout>

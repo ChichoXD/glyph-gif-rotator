@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Una celda de la Pokédex.
+
+    Las 151 se pintan siempre, registradas o no. Un hueco vacío no cuenta nada; un círculo
+    apagado con su número debajo dice "aquí falta uno", y esa lista de huecos es justo lo que
+    hace que apetezca seguir. Es lo mismo que se decidió con los logros pendientes.
+
+    La silueta de las no registradas es un círculo liso, no el dibujo en negro: no tenemos
+    siluetas separadas de los sprites, y oscurecer el GIF dejaría adivinar la forma. Un círculo
+    apagado es más honesto y encaja mejor con la rejilla.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space_xs"
+    android:background="@drawable/pokedex_cell"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/space_l"
+    android:paddingBottom="@dimen/space_m">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardDexSprite"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:cardBackgroundColor="@color/glyph_surface"
+        app:cardCornerRadius="36dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imageDexSprite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_desc_sprite"
+            android:padding="4dp"
+            android:scaleType="fitCenter" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textDexName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_m"
+        android:ellipsize="end"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="@dimen/space_xs"
+        android:paddingEnd="@dimen/space_xs"
+        android:textColor="@color/glyph_white"
+        android:textSize="12sp"
+        tools:text="Bulbasaur" />
+
+    <TextView
+        android:id="@+id/textDexNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xs"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:textColor="@color/glyph_grey"
+        android:textSize="11sp"
+        tools:text="#001" />
+
+</LinearLayout>

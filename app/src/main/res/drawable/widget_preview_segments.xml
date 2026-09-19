@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La tira de segmentos, solo para la vista previa del selector de widgets.
+
+    En el widget de verdad el dibujo llega como bitmap desde WidgetSegments, porque
+    RemoteViews no deja inflar vistas propias. En la vista previa no hay nadie que lo
+    genere: el selector pinta el layout tal cual, sin que corra nuestro codigo.
+
+    Se hace con un trazo discontinuo y no con una lista de rectangulos a medidas fijas
+    porque el ancho del widget lo decide el escritorio: las medidas fijas se
+    descuadrarian en cuanto el usuario lo estirara, y las rayas se reparten solas.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <stroke
+        android:width="4dp"
+        android:color="@color/glyph_led_on"
+        android:dashWidth="9dp"
+        android:dashGap="4dp" />
+</shape>

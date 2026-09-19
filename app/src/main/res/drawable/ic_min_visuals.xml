@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La pestaña de Modos: cómo se traduce una imagen a la Matrix.
+
+    Un círculo partido en claro y oscuro, que es literalmente lo que hacen los cuatro modos
+    —brillo, silueta, silueta+ y contorno—: decidir qué mitad del rango se enciende. El destello
+    de cuatro puntas es el mismo gesto que ya usan los hábitos, así que la familia se reconoce
+    entre sí.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/glyph_white">
+
+    <path
+        android:pathData="M10,10 m-6,0 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M10,4 a6,6 0 0,1 0,12 Z"
+        android:fillColor="@color/glyph_white" />
+    <path
+        android:pathData="M19,15.5 L20,18 L22.5,19 L20,20 L19,22.5 L18,20 L15.5,19 L18,18 Z"
+        android:fillColor="@color/glyph_white" />
+
+</vector>

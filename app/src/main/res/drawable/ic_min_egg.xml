@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Un huevo: ovalo ancho, apenas mas estrecho arriba.
+
+    Lienzo de 24, trazo de 1.5 y extremos redondos, como toda la familia.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/glyph_white">
+
+    <path
+        android:pathData="M12,3.5 C15.8,3.5 18.5,8.8 18.5,13.2 C18.5,17.6 15.6,20.5 12,20.5 C8.4,20.5 5.5,17.6 5.5,13.2 C5.5,8.8 8.2,3.5 12,3.5 Z"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+</vector>

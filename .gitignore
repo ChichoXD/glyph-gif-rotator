@@ -1,17 +1,28 @@
 *.iml
 .gradle
 /local.properties
-/.idea
+local.properties
+/.idea/
 .DS_Store
 /build
 **/build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+*.apk
+*.aab
+*.keystore
+*.jks
 
-# SDK de Nothing: es un binario propietario y no se redistribuye.
-# Descárgalo tú desde el repositorio oficial — ver app/libs/README.md.
+# Nothing Glyph Matrix SDK: binario propietario, no se redistribuye.
+# Descárgalo del repo oficial de Nothing — ver app/libs/README.md.
 app/libs/*.aar
 app/libs/*.jar
 !app/libs/README.md
+
+# Animaciones de Glyph Museum: son de sus autores, no se redistribuyen.
+# La app no las necesita: sin ellas usa la animación dibujada por código.
+app/src/main/assets/*.json
+app/src/main/assets/*.gif
+
+graphify-out/

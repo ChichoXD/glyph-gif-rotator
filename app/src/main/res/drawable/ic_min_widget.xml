@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widgets: cuatro módulos en rejilla.
+
+    Uno relleno y tres de contorno, que es lo que hace la app —widgets del mismo molde, y el que
+    tocas es el que se enciende—. Con los cuatro iguales quedaba un icono de "cuadrícula" que no
+    dice nada; con uno encendido cuenta de qué va la sección.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/glyph_white">
+
+    <path
+        android:pathData="M4,4 L10,4 L10,10 L4,10 Z"
+        android:fillColor="@color/glyph_white" />
+    <path
+        android:pathData="M14,4 L20,4 L20,10 L14,10 Z"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M4,14 L10,14 L10,20 L4,20 Z"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M14,14 L20,14 L20,20 L14,20 Z"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+</vector>

@@ -1,13 +1,16 @@
-# Nothing Glyph Matrix SDK
+# Glyph Matrix SDK (obligatorio, no incluido en este repo)
 
-The `.aar` is **not** in this repository: it is a proprietary binary belonging to Nothing
-Technology Limited and redistributing it isn't ours to do.
+Esta carpeta debe contener el archivo `glyph-matrix-sdk-2.0.aar` oficial de Nothing.
+No se incluye en el repositorio porque su licencia (ver `LICENSE.md` en el repo del
+SDK) prohíbe la redistribución.
 
-To build the project:
+## Cómo obtenerlo
 
-1. Download `glyph-matrix-sdk-2.0.aar` from the official developer kit:
-   https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit
-2. Place it in this folder (`app/libs/`).
-3. Build normally: `./gradlew assembleDebug`
+1. Ve a https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit
+2. Descarga el archivo `glyph-matrix-sdk-2.0.aar` que está en la raíz del repositorio
+   (botón "Download raw file" o `git clone` del repo).
+3. Copia ese archivo aquí, en `app/libs/glyph-matrix-sdk-2.0.aar`, respetando
+   exactamente ese nombre (así lo referencia `app/build.gradle.kts`).
 
-Without it the project will not compile — `app/build.gradle.kts` references the file directly.
+Sin este archivo, la compilación fallará con un error de "no se encuentra el archivo"
+al intentar resolver la dependencia `files("libs/glyph-matrix-sdk-2.0.aar")`.

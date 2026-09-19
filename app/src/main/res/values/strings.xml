@@ -3,6 +3,7 @@
     <string name="app_name">Glyph GIF Rotator</string>
 
     <string name="main_title">Glyph GIF Rotator</string>
+    <string name="main_eyebrow">Nothing Phone (3) · Glyph Matrix</string>
     <string name="main_subtitle">Rota tus GIFs animados en la Glyph Matrix cada vez que bloqueas o desbloqueas el teléfono.</string>
     <string name="label_rotation_switch">Rotación automática</string>
     <string name="button_turn_off_now">Apagar Matrix ahora</string>
@@ -16,11 +17,11 @@
     <string name="button_add_gif">Añadir GIFs o imágenes</string>
     <string name="empty_state">Todavía no has añadido ningún GIF ni imagen.\nPulsa \"Añadir GIFs o imágenes\" para empezar.</string>
     <string name="content_desc_gif_preview">Vista previa del GIF o imagen</string>
+    <string name="content_desc_sprite">Sprite del Pokémon</string>
     <string name="content_desc_remove_gif">Quitar este GIF o imagen</string>
 
     <string name="toast_add_gif_first">Añade al menos un GIF o imagen antes de activar la rotación.</string>
     <string name="toast_rotation_disabled_no_gifs">Rotación desactivada: ya no quedan GIFs ni imágenes en la lista.</string>
-    <string name="toast_matrix_busy">No se pudo usar la Matrix: otra app de Glyph la tiene ocupada.</string>
     <string name="toast_unsupported_device">Este dispositivo no tiene una Glyph Matrix compatible.</string>
     <string name="toast_request_notification_access">Para mostrar el disco de vinilo al pausar la música, concede acceso a notificaciones a esta app.</string>
     <string name="toast_request_usage_access">Para dejarle la Matrix libre cuando abras GlyphMuseum, concede "Acceso a uso" a esta app.</string>
@@ -32,8 +33,22 @@
     <string name="tab_status">Estado</string>
     <string name="tab_modes">Qué se ve</string>
     <string name="tab_limits">Batería</string>
+    <string name="tab_game">Juego</string>
+    <string name="tab_usage">Uso</string>
+    <string name="tab_settings">Ajustes</string>
 
     <!-- Uso del teléfono -->
+    <string name="usage_today">Hoy: %1$d h %2$02d min de pantalla · %3$d desbloqueos\nMedia de la semana: %4$d h %5$02d min al día</string>
+    <string name="usage_screen_time">Tiempo de pantalla</string>
+    <string name="usage_unlocks">Desbloqueos</string>
+    <string name="usage_sleep">Sueño</string>
+    <string name="usage_sleep_empty">Todavía no hay noches registradas. Se apunta solo al dormir.</string>
+    <string name="usage_sleep_summary">Media: %1$d h %2$02d min · objetivo %3$d h %4$02d min</string>
+    <string name="usage_unlocks_legend">Columna encendida: esta semana · La apagada de detrás: la semana pasada</string>
+    <!-- La burbuja que sale al tocar un día en la curva. Corta a proposito: es un globo pequeño. -->
+    <string name="usage_chart_value">%1$d h %2$02d min</string>
+    <!-- La cantidad de un objeto en el inventario, alineada a la derecha de su celda. -->
+    <string name="pokemon_item_quantity">×%1$d</string>
     <string name="tab_designs">Diseños</string>
 
     <!-- Reportar fallos -->
@@ -47,19 +62,58 @@
     <string name="report_empty">Escribe antes qué ha pasado.</string>
     <string name="report_no_browser">No hay navegador para abrir GitHub.</string>
     <string name="report_no_email">No hay ninguna app de correo configurada.</string>
-    <string name="button_language">Idioma de la app</string>
     <string name="button_report">Reportar un fallo</string>
 
     <!-- Logros -->
+    <string name="achievements_title">Logros</string>
+    <string name="achievements_progress">%1$d de %2$d conseguidos</string>
+    <string name="achievement_unlocked_on">Conseguido el %1$s</string>
+    <string name="achievement_progress_detail">Llevas %1$d de %2$d · %3$d %%</string>
+    <string name="achievements_done">Conseguido</string>
+    <string name="achievements_pending">%1$s · %2$d/%3$d</string>
+    <string name="button_achievements">Logros</string>
 
     <!-- Ajustes -->
+    <string name="settings_section_widgets">Widgets</string>
+    <string name="settings_widget_color">Pokémon a color (si no, en blanco y negro)</string>
+    <string name="settings_widget_animated">Animar el sprite en el widget</string>
+    <string name="settings_section_pokemon">Pokémon</string>
+    <string name="settings_version">Versión %1$s</string>
+    <string name="toast_pokemon_unlocked">Modo Pokémon desbloqueado. Está en Ajustes, apagado.</string>
+    <string name="toast_pokemon_unlock_hint">%1$d toques más…</string>
+    <string name="settings_pokemon_mod">Activar modo Pokémon</string>
+    <string name="settings_pokemon_mod_hint">Añade captura, entrenamiento y Pokédex a la Matrix. Apagado por defecto.</string>
+    <string name="settings_cry_on_tap">Sonar el cry al tocar una ficha</string>
+    <string name="settings_show_on_tap">Enseñarlo en la Matrix al tocar una ficha</string>
+    <string name="settings_partner_button">Ver a tu compañero con el botón Glyph</string>
+    <string name="settings_section_habits">Seguimiento</string>
+    <string name="settings_section_report">Reporte y ayuda</string>
 
-    <string name="section_state">01 — Estado</string>
+    <!--
+        Una línea bajo cada título de sección, para no tener que abrirla y ver qué hay dentro.
+        Dicen qué se toca, no qué es: "sonido, Matrix y botón Glyph" sirve para decidir; "ajustes
+        de Pokémon" solo repite el título.
+    -->
+    <string name="settings_hint_widgets">Cómo se ven en la pantalla de inicio</string>
+    <string name="settings_hint_pokemon">Sonido, Matrix y botón Glyph</string>
+    <string name="settings_hint_habits">Agua, sueño y hábitos</string>
+    <string name="settings_hint_report">Contar un fallo con los datos ya rellenados</string>
+
+    <!--
+        Sin numerar desde que esto son pestañas. Los "01 —", "02 —" venían de cuando todo vivía en
+        una sola página larga y el número decía por dónde ibas; repartido en ocho pestañas, un
+        "05" suelto solo pregunta dónde están los otros cuatro.
+    -->
     <string name="section_modes">Qué se muestra</string>
     <string name="section_limits">Límites y Bluetooth</string>
-    <string name="section_battery">02 — Batería</string>
-    <string name="section_bluetooth">03 — Bluetooth</string>
-    <string name="section_designs">05 — Diseños</string>
+    <string name="section_designs">Diseños</string>
+    <string name="section_usage">Uso</string>
+
+    <string name="section_hint_modes">Reloj, vinilo y batería en la Matrix</string>
+    <string name="section_hint_limits">Cuándo se atenúa y cuándo se apaga sola</string>
+    <string name="section_hint_pokemon">Compañero, capturas y huevos</string>
+    <string name="section_hint_designs">Los GIFs que rotan en la pantalla de atrás</string>
+    <string name="section_hint_usage">Pantalla, desbloqueos y sueño</string>
 
     <string name="label_dim_threshold">Atenuar bajo %</string>
     <string name="label_critical_threshold">Apagar bajo %</string>
@@ -67,46 +121,428 @@
     <string name="button_pick_bluetooth_gif">Elegir diseño Bluetooth</string>
     <string name="label_bluetooth_gif_none">Ninguno elegido (no pasa nada al conectar auriculares/dispositivos)</string>
     <string name="label_bluetooth_gif_selected">Se mostrará al conectar: %1$s (toca para quitarlo)</string>
+    <string name="button_test_catch_animation">Probar captura Pokémon</string>
+    <string name="button_test_evolution">Probar evolución</string>
+    <string name="dialog_evolution_style_title">¿Qué animación de evolución?</string>
+    <string name="evolution_style_blink">Parpadeo clásico</string>
+    <string name="evolution_style_rays">Destello que se abre</string>
+    <string name="evolution_style_wipe">Barrido de arriba abajo</string>
+    <string name="evolution_style_pulse">Latidos que crecen</string>
+    <string name="toast_evolution_playing">%1$s en la Matrix: Charmander → Charmeleon</string>
     <!-- Widget de compañero y huevo -->
+    <string name="widget_pokemon_label">Compañero y huevo</string>
+    <string name="widget_no_partner">Sin compañero</string>
+    <string name="widget_no_partner_hint">Elige uno en la app para que entrene</string>
+    <string name="widget_partner_level">Nv %1$d · %2$d %% al siguiente</string>
+    <string name="widget_partner_capped">Nv %1$d · en su tope</string>
+    <string name="widget_no_eggs">Sin huevos</string>
+    <string name="widget_next_egg">Siguiente huevo: %1$d/%2$d capturas</string>
+    <string name="widget_egg_progress">Incubando: %1$d %%</string>
+    <plurals name="widget_eggs">
+        <item quantity="one">%d huevo</item>
+        <item quantity="other">%d huevos</item>
+    </plurals>
 
     <!-- La familia de widgets: cada uno con su nombre en el selector del escritorio -->
+    <string name="widget_partner_label">Compañero</string>
+    <string name="widget_egg_label">Huevo</string>
+    <string name="widget_pokedex_label">Pokédex</string>
+    <string name="widget_collection_label">Colección al azar</string>
+    <string name="widget_sleep_label">Sueño</string>
+    <string name="widget_habits_label">Hábitos</string>
+    <string name="widget_bonus_label">Bonus del día</string>
 
+    <string name="widget_partner_title">Entrenando</string>
+    <string name="widget_egg_title">Huevo</string>
 
+    <string name="widget_pokedex_title">Pokédex</string>
+    <string name="widget_pokedex_value">%1$d / %2$d</string>
+    <string name="widget_pokedex_detail">%1$d atrapados en total</string>
 
+    <string name="widget_collection_title">De tu colección</string>
+    <string name="widget_collection_empty">Sin capturas</string>
+    <string name="widget_collection_empty_hint">Deja el móvil en reposo y aparecerán</string>
+    <string name="widget_collection_detail">Nº %1$d · Nv %2$d · toca para ver otro (%3$d en total)</string>
 
+    <string name="widget_sleep_title">Anoche</string>
+    <string name="widget_sleep_none">Sin datos</string>
+    <string name="widget_sleep_none_hint">Se apunta solo al dormir</string>
+    <string name="widget_sleep_value">%1$d h %2$02d min</string>
+    <string name="widget_sleep_detail">Calidad %1$d %% · %2$d noches registradas</string>
 
+    <string name="widget_habits_title">Hábitos al día</string>
+    <string name="widget_habits_empty">Ninguno</string>
+    <string name="widget_habits_empty_hint">Apúntalos en la app</string>
+    <string name="widget_habits_value">%1$d de %2$d</string>
+    <string name="widget_habits_detail">Mejor racha en curso: %1$d días</string>
 
+    <string name="widget_bonus_title">Bonus de mañana</string>
+    <string name="widget_bonus_value">XP ×%1$s</string>
+    <string name="widget_bonus_detail">Máximo posible: ×%1$s (sueño + agua + hábitos)</string>
 
     <!-- Decoración de los widgets -->
+    <string name="widget_decor_title">Decora el widget</string>
+    <string name="widget_decor_hint">Elige un dibujo, o importa el tuyo: se convierte a puntos como la Glyph Matrix.</string>
+    <string name="widget_decor_import">Importar imagen o GIF</string>
+    <string name="widget_decor_none">Sin dibujo</string>
 
     <!-- Widget del agua -->
+    <string name="widget_water_label">Agua</string>
+    <string name="widget_water_title">Agua de hoy</string>
+    <string name="widget_water_amount">%1$d / %2$d ml</string>
+    <string name="widget_water_add">+ %1$d ml</string>
+    <string name="widget_water_done">¡Objetivo cumplido!</string>
+    <string name="widget_water_bonus">Mañana: XP ×%1$s</string>
+    <string name="widget_water_undo">−</string>
 
     <!-- Los "por qué" de cada objetivo, detrás del icono de información -->
+    <string name="info_button">ⓘ</string>
+    <string name="info_sleep_title">Sobre el sueño</string>
+    <string name="info_sleep_body">Se recomiendan 7–9 h. Por defecto: 7 h 30.\n\nNota = 70 %% cuánto dormiste + 30 %% puntualidad.\n\nSe mide con la pantalla apagada. Cuenta el tramo más largo, no la suma.\n\nNo es consejo médico.</string>
+    <string name="info_water_title">Sobre el agua</string>
+    <string name="info_water_body">Se suelen citar ~2 L al día, pero depende de ti. Cámbialo.\n\nCada toque suma una ración (un vaso ≈ 250 ml).\n\nEl premio se cobra mañana: así premia el día entero, no un trago de golpe.\n\nNo es consejo médico.</string>
+    <string name="info_habits_title">Sobre los hábitos</string>
+    <string name="info_habits_body">Los escribes tú: diarios o X veces por semana.\n\nUno semanal se juzga por si vas al ritmo, no por hoy: así el gym no castiga los días de descanso.\n\nRacha en días si es diario, en semanas si es semanal.\n\nIncumplir frena: de ×0,21 a ×2,9.</string>
 
     <!-- Agua en la app -->
+    <string name="wild_pending_button">¡Hay un %1$s esperando!</string>
+    <string name="wild_pending_title">%1$s salvaje</string>
+    <string name="wild_pending_message">Está en la Matrix esperando.\n\nLo normal es atraparlo con una pulsación larga del botón Glyph. Si eso no responde, es que el toy seleccionado en los ajustes de Glyph no es el nuestro y el botón no nos llega: desde aquí puedes resolverlo igual.</string>
+    <string name="wild_catch">Atrapar</string>
+    <string name="wild_release">Dejarlo ir</string>
+    <string name="button_water">Agua y bonus</string>
+    <string name="water_dialog_title">Agua de hoy</string>
+    <string name="water_summary">Llevas %1$d de %2$d ml (%3$d %%).\n\nCada toque en el widget suma un %4$d ml.\n\nCumplirlo te da mañana XP ×%5$s al entrenar.\n\nRacha: %6$d días seguidos. Mejor racha: %7$d. Días cumplidos: %8$d.</string>
+    <string name="water_goal_prompt">Objetivo del día, en ml</string>
+    <string name="water_portion_prompt">Cada toque suma, en ml</string>
+    <string name="water_add_one">＋ %1$d ml</string>
+    <string name="water_remove_one">− %1$d ml</string>
+    <string name="water_reset">Poner a cero</string>
+    <string name="water_settings">Vaso y objetivo</string>
+    <string name="stats_no_history">Aún no hay historial que enseñar. Vuelve en unos días.</string>
 
     <!-- Hábitos -->
+    <string name="button_habits">Mis hábitos</string>
+    <string name="habits_title">Hábitos de hoy</string>
+    <string name="habits_empty">Todavía no has apuntado ninguno.\n\nAquí van las cosas que quieres dejar o mantener: dejar de fumar, no morderte las uñas, lo que sea. Cada día que los cumplas, tu compañero entrena más rápido.</string>
+    <string name="habits_add">Añadir hábito</string>
+    <string name="habits_new_prompt">¿Qué quieres seguir?</string>
+    <string name="habits_entry_daily">%1$s · todos los días · racha %2$d</string>
+    <string name="habits_entry_weekly">%1$s · %2$d/%3$d esta semana · racha %4$d sem.</string>
+    <string name="habits_bonus">Al día: %1$d de %2$d · XP ×%3$s</string>
+    <string name="habits_frequency_label">¿Cada cuánto?</string>
+    <string name="habits_frequency_daily">Todos los días</string>
+    <plurals name="habits_frequency_weekly">
+        <item quantity="one">%d vez por semana</item>
+        <item quantity="other">%d veces por semana</item>
+    </plurals>
+    <string name="habits_stats">Ver estadísticas</string>
 
     <!-- Registro y estadísticas -->
+    <string name="stats_title">Tu registro</string>
+    <string name="stats_water_header">AGUA</string>
+    <string name="stats_water_body">Hoy: %1$d de %2$d ml\nEsta semana cumpliste %3$d de %4$d días\nMedia 7 días: %5$d ml · 30 días: %6$d ml\nRacha: %7$d · mejor: %8$d · días cumplidos: %9$d</string>
+    <string name="stats_habits_header">HÁBITOS</string>
+    <string name="stats_habits_empty">Ninguno apuntado todavía.</string>
+    <string name="stats_habit_line">· %1$s (%2$s)\n   Esta semana %3$d/%4$d · racha %5$d · %6$d de los últimos %7$d días · %8$d en total</string>
+    <string name="stats_legend">Cada punto es un día. Cuanto más blanco, más cumpliste. El rojo es hoy.</string>
+    <string name="stats_water_summary">Hoy %1$d de %2$d ml · racha %3$d (mejor %4$d)\nEsta semana %5$d de 7 días · media del mes %6$d ml</string>
+    <string name="stats_habit_daily">%1$s · todos los días · racha %2$d días</string>
+    <string name="stats_habit_weekly">%1$s · %2$d por semana · %3$d esta semana · racha %4$d sem.</string>
+    <string name="stats_sleep_summary">Anoche %1$d h %2$02d min · calidad %3$d %%\n%4$d noches · media %5$d %% · mejor %6$d %%</string>
+    <string name="stats_sleep_header">SUEÑO</string>
+    <string name="stats_sleep_empty">Ninguna noche registrada todavía.</string>
+    <string name="stats_sleep_body">Anoche: %1$s (calidad %2$d %%)\n%3$d noches · media %4$d %% · mejor %5$d %%</string>
+    <string name="habits_delete_title">¿Borrar «%1$s»?</string>
+    <string name="habits_delete_message">Se pierde también su racha.</string>
+    <string name="habits_delete_pick">Borrar uno</string>
 
     <!-- Bonus del día -->
+    <string name="bonus_title">Bonus de mañana</string>
+    <string name="bonus_breakdown">Tu compañero entrena a XP ×%1$s.\n\n· Sueño: ×%2$s\n· Agua: ×%3$s\n· Hábitos: ×%4$s\n\nSe multiplican entre sí, así que cuidarte en las tres cosas es lo que de verdad cambia el ritmo.</string>
 
+    <string name="button_sleep">¿Dormiste bien?</string>
+    <string name="sleep_dialog_title">Cómo dormiste anoche</string>
+    <string name="sleep_no_data">Todavía no hay ninguna noche registrada.\n\nSe apunta sola: un tramo largo de pantalla apagada que empiece por la noche cuenta como dormir. No hace falta activar nada ni llevar nada puesto.\n\nHora de acostarse: %1$s · objetivo: %2$s</string>
+    <string name="sleep_summary">Dormiste %1$s de %2$s (%3$d %%).\nTe acostaste %4$s\n\nCalidad: %5$d %% — el %6$d %% viene de las horas y el %7$d %% de la puntualidad.\n\nPremio de hoy:\n· Aparecen ×%8$s más Pokémon\n· Los raros pesan ×%9$s\n\nLlevas %10$d noches. Media: %11$d %%. Mejor: %12$d %%.\n\nHora de acostarse: %13$s · objetivo: %14$s</string>
+    <string name="sleep_on_time">a tu hora.</string>
+    <string name="sleep_late">%1$s tarde.</string>
+    <string name="sleep_hours_minutes">%1$d h %2$02d min</string>
+    <string name="button_sleep_settings">Cambiar horario</string>
+    <string name="sleep_bedtime_prompt">Hora de acostarse (HH:MM)</string>
+    <string name="sleep_goal_prompt">Horas que quieres dormir</string>
+    <string name="pokemon_eggs_none">SIN HUEVOS\nUNO CADA %1$d CAPTURAS · LLEVAS %2$d</string>
+    <string name="pokemon_eggs_incubating">HUEVOS %1$d · INCUBANDO AL %2$d%%\nSIGUIENTE HUEVO %3$d/%4$d CAPTURAS</string>
+    <string name="button_enable_weather">Activar clima real</string>
+    <string name="button_weather_active">Clima real activo</string>
+    <string name="toast_weather_enabled">Clima activado: lluvia, tormenta y nieve ya cambian lo que aparece</string>
+    <string name="toast_weather_denied">Sin ubicación el clima se queda en despejado y no hay multiplicadores</string>
+    <string name="button_test_egg">Probar huevo</string>
+    <string name="dialog_egg_stage_title">¿Qué fase del huevo?</string>
+    <string name="egg_stage_fresh">Recién puesto (apenas respira)</string>
+    <string name="egg_stage_warm">A media eclosión (respira y se mueve)</string>
+    <string name="egg_stage_hatching">A punto (se sacude y tiene grietas)</string>
+    <string name="toast_egg_playing">Huevo en la Matrix: %1$s</string>
 
     <string name="toy_name">Reloj + Batería</string>
     <string name="toy_summary">Reloj con la hora; mantén pulsado el botón Glyph para ver la batería con simulación de líquido.</string>
 
-    <string name="credit_text">by @ChichoXD</string>
+    <string name="credit_text">by @locarnoarrieta / @ChichoXD</string>
 
+    <string name="pokemon_title">Pokémon</string>
+    <string name="button_open_pokemon">Abrir Pokémon</string>
+    <string name="pokemon_section_training">Entrenamiento</string>
+    <string name="pokemon_section_inventory">Inventario</string>
+    <string name="pokemon_section_team">Equipo</string>
+    <string name="pokemon_section_debug">Pruebas</string>
+    <string name="pokemon_pokedex_progress">Pokédex: %1$d / %2$d especies</string>
+    <string name="pokemon_no_partner">SIN COMPAÑERO\nELIGE UNO DEL EQUIPO PARA QUE ENTRENE CON LA PANTALLA APAGADA</string>
+    <string name="pokemon_partner_active">ENTRENANDO · %1$s\nNV. %2$d · +%3$d EXP/MIN · PANTALLA APAGADA</string>
+    <string name="pokemon_inventory_empty">SIN OBJETOS\nSISTEMA LISTO</string>
+    <string name="pokemon_team_empty">EQUIPO VACÍO\nESPERANDO PRIMERA CAPTURA</string>
+    <string name="pokemon_catch_random">Capturar uno al azar (prueba)</string>
+    <string name="pokemon_give_items">Darme objetos (prueba)</string>
+    <string name="pokemon_set_partner">Entrenar</string>
+    <string name="pokemon_partner_current">Entrenando</string>
+    <string name="pokemon_use_item">Usar objeto</string>
+    <string name="pokemon_level_cap">Tope de nivel</string>
+    <string name="pokemon_level_cap_none">Sin tope</string>
+    <string name="pokemon_level_cap_set">Tope: Nv. %1$d</string>
+    <string name="pokemon_level_cap_choose">¿Hasta qué nivel quieres subirlo?</string>
+    <string name="pokemon_evolves_at">Evoluciona al Nv. %1$d</string>
+    <string name="pokemon_no_items_usable">Ningún objeto sirve con %1$s ahora mismo.</string>
+    <string name="pokemon_choose_item">Elige un objeto</string>
+    <string name="pokemon_entry_format">#%1$03d %2$s</string>
+    <string name="pokemon_level_format">Nv. %1$d</string>
+    <string name="pokemon_types_format">%1$s · %2$d/%3$d EXP</string>
+    <string name="pokemon_evolved">¡%1$s evolucionó a %2$s!</string>
+    <string name="pokemon_leveled_up">%1$s subió al nivel %2$d.</string>
+    <string name="pokemon_caught">¡Capturado %1$s!</string>
 
+    <string name="cry_section">Sonido</string>
+    <string name="cry_hint">Toca la ficha de un Pokémon para oír su cry.</string>
+    <string name="cry_button">Sonido: %1$s</string>
+    <string name="cry_choose">Variante de sonido</string>
+    <string name="sprites_section">Sprites</string>
+    <string name="sprites_import">Importar sprites</string>
+    <string name="sprites_state_summary">%1$d de %2$d sprites importados</string>
+    <string name="toast_matrix_busy">No se pudo usar la Matrix: otra app de Glyph la tiene ocupada (cierra GlyphMuseum e inténtalo otra vez).</string>
+    <string name="toast_sprite_missing">No hay sprite importado de %1$s.</string>
+    <string name="toast_sprites_imported">Importados %1$d sprites (%2$d archivos descartados).</string>
 
+    <string name="item_fire_stone">Piedra Fuego</string>
+    <string name="item_water_stone">Piedra Agua</string>
+    <string name="item_thunder_stone">Piedra Trueno</string>
+    <string name="item_leaf_stone">Piedra Hoja</string>
+    <string name="item_moon_stone">Piedra Lunar</string>
+    <string name="item_linking_cord">Cable Unión</string>
+    <string name="item_rare_candy">Caramelo Raro</string>
+    <string name="item_super_rod">Caña Súper</string>
 
     <string name="notification_channel_name">Rotación de Glyph Matrix</string>
     <string name="notification_channel_description">Indica que la rotación de GIFs en la Glyph Matrix está activa en segundo plano.</string>
     <string name="notification_title">Glyph GIF Rotator activo</string>
     <string name="notification_text">Cambiando el diseño de la Glyph Matrix al bloquear/desbloquear la pantalla.</string>
-    <plurals name="toast_gifs_purged">
-        <item quantity="one">Se quitó %d diseño que ya no se podía abrir (pasa al reinstalar)</item>
-        <item quantity="other">Se quitaron %d diseños que ya no se podían abrir (pasa al reinstalar)</item>
-    </plurals>
+    <string name="pokemon_eyebrow">KANTO · 001–151</string>
+    <string name="pokemon_row_level">Nivel</string>
+    <string name="pokemon_row_exp">Exp</string>
+    <string name="pokemon_dex_number">#%1$03d</string>
+    <string name="pokemon_level_value">%1$02d</string>
+    <string name="pokemon_exp_value">%1$03d / %2$03d</string>
+    <string name="achievements_eyebrow">Registro del entrenador</string>
+    <string name="achievements_group_done">Conseguidos</string>
+    <string name="achievements_group_pending">Pendientes</string>
+    <string name="stats_eyebrow">Registro · 63 días</string>
+    <string name="tab_pokedex">Pokédex</string>
+    <string name="pokedex_unknown">\?\?\?</string>
+    <string name="balance_eyebrow">Ajuste fino</string>
+    <string name="balance_title">Equilibrio</string>
+    <string name="balance_intro">Lo que vale cada cosa en el juego normal y en el modo demo. El demo acelera cada cuánto pasan las cosas, no cuánto premian: los multiplicadores de la vida real se quedan igual a propósito, porque si también se inflaran no estarías probando este juego sino otro.</string>
+    <string name="balance_demo_switch">Modo demo</string>
+    <string name="balance_state_demo">Demo activo · el juego va acelerado</string>
+    <string name="balance_state_normal">Ritmo normal</string>
+    <string name="balance_normal">Normal</string>
+    <string name="balance_demo">Demo</string>
+    <string name="balance_same">Igual</string>
+    <string name="balance_minutes">%1$d min</string>
+    <string name="balance_hours">%1$d h %2$d min</string>
+    <string name="balance_group_spawn">Apariciones</string>
+    <string name="balance_first_catch">Tu primera captura</string>
+    <string name="balance_first_catch_why">Probabilidad por comprobación cuando la Pokédex está vacía. Sube a propósito: esperar una hora para ver si el juego existe siquiera es demasiado.</string>
+    <string name="balance_after_15">A los 15 min de pantalla apagada</string>
+    <string name="balance_after_15_why">Se comprueba una vez por minuto. Cuanto más tiempo lleves sin mirar el móvil, más sube.</string>
+    <string name="balance_after_30">A los 30 min</string>
+    <string name="balance_after_30_why">Segundo escalón. El contador se reinicia cada vez que aparece uno.</string>
+    <string name="balance_after_45">A los 45 min</string>
+    <string name="balance_after_45_why">Tercer escalón, ya notable: aquí es donde empieza a compensar dejar el teléfono.</string>
+    <string name="balance_after_60">A la hora</string>
+    <string name="balance_after_60_why">Aparición garantizada. Es la promesa del juego: una hora sin mirar el móvil, un Pokémon seguro.</string>
+    <string name="balance_bedtime">De madrugada (1:00–7:00)</string>
+    <string name="balance_bedtime_why">Se corta casi del todo. Si no, ocho horas de sueño llenarían la cola de capturas y al despertar no quedaría nada por hacer.</string>
+    <string name="balance_group_training">Entrenamiento</string>
+    <string name="balance_exp_minute">Experiencia por minuto</string>
+    <string name="balance_exp_minute_why">Solo cuenta con la pantalla apagada. Es lo que gana el compañero mientras no usas el teléfono.</string>
+    <string name="balance_level_time">Tiempo por nivel</string>
+    <string name="balance_level_time_why">Pantalla apagada seguida que hace falta para subir un nivel, sin contar el extra ni los multiplicadores de la vida real.</string>
+    <string name="balance_bonus">Extra periódico</string>
+    <string name="balance_bonus_value">+%1$d cada %2$d min</string>
+    <string name="balance_bonus_why">Un pellizco cada rato largo de reposo, para premiar los tramos seguidos frente a muchos ratitos sueltos. El demo no lo toca.</string>
+    <string name="balance_group_eggs">Huevos</string>
+    <string name="balance_captures_egg">Capturas por huevo</string>
+    <string name="balance_captures_egg_why">Los huevos se acumulan y no se pierden. De un huevo sale una forma base, priorizando las que te falten en la Pokédex.</string>
+    <string name="balance_incubation">Incubación</string>
+    <string name="balance_incubation_why">Minutos de pantalla apagada que tarda en abrirse. Compite por el mismo tiempo que el entrenamiento del compañero.</string>
+    <string name="balance_group_life">La vida real</string>
+    <string name="balance_sleep">Sueño</string>
+    <string name="balance_sleep_why">Multiplica la experiencia según lo bien que dormiste: cantidad y puntualidad al acostarte. Dormir mal frena de verdad, no es solo no ganar el premio.</string>
+    <string name="balance_water">Agua</string>
+    <string name="balance_water_why">Cumplir el objetivo del día o no. Es el factor más suave de los cuatro: castiga poco y premia poco.</string>
+    <string name="balance_habits">Hábitos</string>
+    <string name="balance_habits_why">El de mayor recorrido. Cumplirlos todos casi duplica; incumplirlos todos deja la experiencia a la mitad.</string>
+    <string name="balance_streak">Racha</string>
+    <string name="balance_streak_why">Crece con los días seguidos cumpliendo, hasta el tope a los 30 días. Es el único que premia la constancia y no el día suelto.</string>
+    <string name="balance_total">Todos juntos</string>
+    <string name="balance_total_why">Los cuatro se multiplican entre sí. Ese es el abanico real entre un día pésimo y uno perfecto, y es lo que hay que mirar para decidir si está fácil o difícil.</string>
+    <string name="balance_button">Equilibrio y modo demo</string>
+    <string name="tutorial_eyebrow">Cómo funciona</string>
+    <string name="tutorial_skip">Saltar</string>
+    <string name="tutorial_next">Siguiente</string>
+    <string name="tutorial_done">Empezar</string>
+    <string name="tutorial_button">Cómo funciona</string>
+    <string name="tut_rot_1_title">La Matrix</string>
+    <string name="tut_rot_1_body">Tu Phone (3) lleva detrás una pantalla de 489 LEDs. Esta app la usa para enseñar tus propios GIFs cuando bloqueas o desbloqueas el teléfono.\n\nDate la vuelta al móvil para verla.</string>
+    <string name="tut_rot_2_title">Tus diseños</string>
+    <string name="tut_rot_2_body">En la pestaña DISEÑOS añades los GIFs o imágenes que quieras. Se copian dentro de la app, así que puedes borrar el original sin miedo.\n\nCada uno se procesa para verse bien a 25x25 puntos: si uno sale mal, tócalo y prueba otro modo de dibujo.</string>
+    <string name="tut_rot_3_title">Enciéndelo</string>
+    <string name="tut_rot_3_body">En ESTADO tienes el interruptor principal. Con él encendido, la Matrix va cambiando de diseño sola.\n\nAndroid te pedirá algún permiso la primera vez. Son para que el servicio siga vivo con la pantalla apagada.</string>
+    <string name="tut_rot_4_title">Reloj y batería</string>
+    <string name="tut_rot_4_body">En QUÉ SE VE eliges qué aparece en reposo: el reloj, el disco de vinilo cuando suena música, el líquido de la batería al enchufar el cable.\n\nEn BATERÍA pones a partir de qué porcentaje se atenúa o se apaga sola.</string>
+    <string name="tut_rot_5_title">Si no ves nada</string>
+    <string name="tut_rot_5_body">El teléfono apaga la Matrix cuando detecta que está boca arriba: dale la vuelta.\n\nY si tienes otra app de Glyph abierta, esta le cede la pantalla para no pelearse con ella.</string>
+    <string name="tut_pok_1_title">El juego</string>
+    <string name="tut_pok_1_body">Aparecen Pokémon salvajes en la Matrix mientras NO usas el teléfono. Cuanto más rato lleves sin mirarlo, más probable es que salga uno.\n\nA la hora de pantalla apagada, aparición garantizada.</string>
+    <string name="tut_pok_2_title">Capturar</string>
+    <string name="tut_pok_2_body">Cuando salga uno, mantén pulsado el botón Glyph de la parte de atrás para atraparlo.\n\nPara que el botón te llegue, el toy de esta app tiene que ser el que esté elegido en los ajustes de Glyph del sistema.</string>
+    <string name="tut_pok_3_title">Entrenar</string>
+    <string name="tut_pok_3_body">Elige un compañero en EQUIPO y ganará experiencia por cada minuto de pantalla apagada. Al subir de nivel evoluciona solo, y lo verás en la Matrix.\n\nEn AJUSTES puedes activar que salga al pulsar el botón Glyph.</string>
+    <string name="tut_pok_4_title">La vida real</string>
+    <string name="tut_pok_4_body">Dormir bien, beber agua y cumplir tus hábitos multiplican la experiencia que gana tu compañero. Incumplirlos la frenan de verdad.\n\nApunta tus hábitos en MIS HÁBITOS y tu objetivo de agua en AGUA Y BONUS.</string>
+    <string name="tut_pok_5_title">Huevos</string>
+    <string name="tut_pok_5_body">Cada diez capturas te llevas un huevo. Se incuban con el teléfono en reposo, igual que se entrena.\n\nDe un huevo sale una forma base, y salen antes las que te falten en la Pokédex.</string>
+    <string name="tut_pok_6_title">Ver cómo vas</string>
+    <string name="tut_pok_6_body">En ESTADÍSTICAS tienes el calendario de cada cosa, y en LOGROS lo que llevas y lo que falta.\n\nSi quieres probarlo todo deprisa, en JUEGO tienes EQUILIBRIO Y MODO DEMO con los números del juego y un interruptor que lo acelera.</string>
 
+    <!-- ============================================================
+         Las variantes de sonido de los cries. Estaban escritas a pelo
+         dentro del enum CrySoundSet, en Kotlin, asi que en el build en
+         ingles salian en español pasara lo que pasara con este archivo.
+         ============================================================ -->
+    <!-- Por que no se pudo usar un objeto. Salen en un toast; estaban a pelo en PokemonGame. -->
+    <string name="game_fail_not_in_list">Ese Pokémon ya no está en la lista</string>
+    <string name="game_fail_no_item">No te queda ninguno de ese objeto</string>
+    <string name="game_fail_item_useless">Ese objeto no hace nada con %1$s</string>
+    <string name="game_fail_level_capped">%1$s ya está en su tope de nivel</string>
+    <string name="game_fail_max_level">Ya está al nivel máximo</string>
+    <string name="game_fail_unknown_species">Especie desconocida</string>
+    <string name="game_fail_no_evolution">%1$s no evoluciona con eso</string>
+
+    <string name="cry_set_legacy">Juego clásico (8 bits)</string>
+    <string name="cry_set_hd">Juego actual (HD)</string>
+    <string name="cry_set_anime">Anime</string>
+
+    <!-- ============================================================
+         Los 37 logros. Mismo caso que las variantes de sonido: nombre y
+         pista estaban a pelo en Achievements.kt, asi que la pantalla de
+         Logros salia entera en español en el build en ingles.
+
+         La clave lleva el id del logro, que es fijo y se guarda en disco.
+         Renombrar un id dejaria huerfano el desbloqueo de quien ya lo
+         tuviera, asi que la clave hereda esa misma estabilidad.
+         ============================================================ -->
+
+    <!-- Captura -->
+    <string name="ach_catch_1_name">Primera captura</string>
+    <string name="ach_catch_1_hint">Atrapa tu primer Pokémon</string>
+    <string name="ach_catch_10_name">Cazador</string>
+    <string name="ach_catch_10_hint">Atrapa 10 Pokémon</string>
+    <string name="ach_catch_50_name">Coleccionista</string>
+    <string name="ach_catch_50_hint">Atrapa 50 Pokémon</string>
+    <string name="ach_catch_100_name">Obsesión sana</string>
+    <string name="ach_catch_100_hint">Atrapa 100 Pokémon</string>
+    <string name="ach_catch_151_name">Sin descanso</string>
+    <string name="ach_catch_151_hint">Atrapa 151 Pokémon</string>
+    <string name="ach_types_all_name">Variado</string>
+    <string name="ach_types_all_hint">Ten Pokémon de 10 tipos distintos</string>
+    <string name="ach_catch_night_name">Nocturno</string>
+    <string name="ach_catch_night_hint">Atrapa 5 de madrugada</string>
+    <string name="ach_catch_low_battery_name">A pilas</string>
+    <string name="ach_catch_low_battery_hint">Atrapa uno con menos del 15 % de batería</string>
+    <string name="ach_released_name">Suéltalo</string>
+    <string name="ach_released_hint">Deja ir a un Pokémon salvaje</string>
+
+    <!-- Pokédex -->
+    <string name="ach_dex_10_name">Empezando</string>
+    <string name="ach_dex_10_hint">Registra 10 especies</string>
+    <string name="ach_dex_50_name">A buen ritmo</string>
+    <string name="ach_dex_50_hint">Registra 50 especies</string>
+    <string name="ach_dex_100_name">Casi está</string>
+    <string name="ach_dex_100_hint">Registra 100 especies</string>
+    <string name="ach_dex_full_name">Pokédex completa</string>
+    <string name="ach_dex_full_hint">Registra las 151 especies</string>
+    <string name="ach_starters_name">Los tres iniciales</string>
+    <string name="ach_starters_hint">Ten a Bulbasaur, Charmander y Squirtle</string>
+    <string name="ach_starters_final_name">Iniciales completados</string>
+    <string name="ach_starters_final_hint">Ten sus tres formas finales</string>
+    <string name="ach_birds_name">Los tres pájaros</string>
+    <string name="ach_birds_hint">Ten a Articuno, Zapdos y Moltres</string>
+    <string name="ach_mewtwo_name">El de la cueva</string>
+    <string name="ach_mewtwo_hint">Consigue a Mewtwo</string>
+
+    <!-- Evolución y entrenamiento -->
+    <string name="ach_evo_1_name">Ha evolucionado</string>
+    <string name="ach_evo_1_hint">Evoluciona a tu primer Pokémon</string>
+    <string name="ach_evo_10_name">Criador</string>
+    <string name="ach_evo_10_hint">Consigue 10 evoluciones</string>
+    <string name="ach_level_25_name">Veterano</string>
+    <string name="ach_level_25_hint">Sube uno a nivel 25</string>
+    <string name="ach_level_50_name">Curtido</string>
+    <string name="ach_level_50_hint">Sube uno a nivel 50</string>
+    <string name="ach_level_100_name">Al máximo</string>
+    <string name="ach_level_100_hint">Sube uno a nivel 100</string>
+    <string name="ach_capped_name">Como estabas</string>
+    <string name="ach_capped_hint">Pon tope de nivel a 3 Pokémon</string>
+
+    <!-- Huevos -->
+    <string name="ach_egg_first_name">Algo se mueve</string>
+    <string name="ach_egg_first_hint">Consigue tu primer huevo</string>
+    <string name="ach_egg_hatch_1_name">Ha nacido</string>
+    <string name="ach_egg_hatch_1_hint">Abre tu primer huevo</string>
+    <string name="ach_egg_hatch_10_name">Incubadora</string>
+    <string name="ach_egg_hatch_10_hint">Abre 10 huevos</string>
+
+    <!-- Constancia -->
+    <string name="ach_streak_7_name">Una semana</string>
+    <string name="ach_streak_7_hint">Mantén una racha de 7 días</string>
+    <string name="ach_streak_30_name">Un mes entero</string>
+    <string name="ach_streak_30_hint">Mantén una racha de 30 días</string>
+    <string name="ach_streak_100_name">Cien días</string>
+    <string name="ach_streak_100_hint">Mantén una racha de 100 días</string>
+    <string name="ach_perfect_day_name">Día redondo</string>
+    <string name="ach_perfect_day_hint">Cumple sueño, agua y todos tus hábitos el mismo día</string>
+    <string name="ach_perfect_week_name">Semana redonda</string>
+    <string name="ach_perfect_week_hint">Siete días redondos</string>
+
+    <!-- Agua, sueño y hábitos -->
+    <string name="ach_water_1_name">Primer vaso</string>
+    <string name="ach_water_1_hint">Cumple tu objetivo de agua un día</string>
+    <string name="ach_water_30_name">Bien hidratado</string>
+    <string name="ach_water_30_hint">Cúmplelo 30 días</string>
+    <string name="ach_sleep_1_name">Buenas noches</string>
+    <string name="ach_sleep_1_hint">Registra tu primera noche</string>
+    <string name="ach_sleep_perfect_name">Noche perfecta</string>
+    <string name="ach_sleep_perfect_hint">Duerme una noche de calidad 100 %</string>
+    <string name="ach_habit_first_name">Algo que cambiar</string>
+    <string name="ach_habit_first_hint">Apunta tu primer hábito</string>
+    <string name="ach_habit_30_name">Ya es costumbre</string>
+    <string name="ach_habit_30_hint">Llega a 30 de racha en un hábito</string>
 </resources>

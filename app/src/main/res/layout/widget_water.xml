@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El widget del agua. Todo él es el botón de sumar menos la esquina de ajustes: desde el
+    escritorio uno quiere dar un toque y seguir, no apuntar a un botón pequeño.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/waterRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/waterIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:contentDescription="@string/widget_decor_title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/glyph_grey"
+            android:textSize="11sp"
+            android:text="@string/widget_water_title"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.18"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/waterAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:textColor="@color/glyph_white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace" />
+
+    <ImageView
+        android:id="@+id/waterProgress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <!--
+        Sumar ocupa casi toda la fila y restar se queda en una esquina estrecha: sumar se hace
+        varias veces al día y restar solo cuando te has equivocado. Si los dos fueran iguales,
+        acabarías restando sin querer justo lo que acabas de beber.
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/waterHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/glyph_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/waterUndo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="14dp"
+            android:paddingEnd="6dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/glyph_grey"
+            android:textSize="14sp"
+            android:text="@string/widget_water_undo"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/waterBonus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/glyph_grey"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.18"
+        android:textAllCaps="true" />
+</LinearLayout>

@@ -21,6 +21,7 @@ enum class DisplayMode {
     CAROUSEL,
 
     /** Un Pokémon salvaje esperando a que enciendas la pantalla. */
+    WILD_POKEMON
 }
 
 /** Estado del teléfono y de la app que determina qué mostrar. */
@@ -31,8 +32,7 @@ data class DisplayInputs(
     /** Acaba de entrar una notificación y el sistema está pintando su animación. */
     val notificationFlashActive: Boolean = false,
     val criticalBattery: Boolean = false,
-    /** Una animación puntual en curso: manda sobre el carrusel mientras dura. */
-    val oneShotActive: Boolean = false,
+    val catchTestActive: Boolean = false,
     val bluetoothFlashActive: Boolean = false,
     val plugFlashActive: Boolean = false,
     val musicPlaying: Boolean = false,
@@ -40,6 +40,7 @@ data class DisplayInputs(
     val screenUnlocked: Boolean = false,
     val clockEnabled: Boolean = false,
     /** Hay un Pokémon salvaje esperando. */
+    val wildSpawnWaiting: Boolean = false,
     /** El disco de vinilo mientras suena música. */
     val vinylEnabled: Boolean = true,
     /**
@@ -74,7 +75,7 @@ object DisplayDecider {
 
         // Animaciones puntuales que el usuario acaba de disparar. Van por encima del
         // interruptor principal: pedir ver un diseño concreto es una orden explícita.
-        inputs.oneShotActive -> DisplayMode.CAROUSEL
+        inputs.catchTestActive -> DisplayMode.CAROUSEL
         inputs.bluetoothFlashActive -> DisplayMode.CAROUSEL
 
         // Con la rotación apagada no se enciende nada por su cuenta. El servicio puede seguir
@@ -83,6 +84,7 @@ object DisplayDecider {
         !inputs.rotationEnabled -> DisplayMode.OFF
 
         // El salvaje manda: se va si no lo recoges, y la música o la carga siguen ahí después.
+        inputs.wildSpawnWaiting -> DisplayMode.WILD_POKEMON
 
         // Música y carga se ven también con la pantalla apagada.
         inputs.plugFlashActive -> DisplayMode.BATTERY_LIQUID
@@ -94,6 +96,7 @@ object DisplayDecider {
         // En reposo: si hay un Pokémon esperando manda él; si no, el reloj si lo quiere el
         // usuario. El salvaje va delante porque es lo que hay que ver antes de que se vaya.
         !inputs.screenUnlocked -> when {
+            inputs.wildSpawnWaiting -> DisplayMode.WILD_POKEMON
             inputs.clockEnabled -> DisplayMode.CLOCK
             else -> DisplayMode.OFF
         }

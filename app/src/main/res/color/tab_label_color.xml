@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La etiqueta va en blanco puro al seleccionarse, no en blanco cálido: es texto, y el texto se
+    lee mejor en blanco. El cálido se queda para el icono, que es donde hace de LED.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/glyph_white" android:state_selected="true" />
+    <item android:color="@color/glyph_grey" />
+</selector>

@@ -14,10 +14,21 @@ import kotlin.math.sqrt
  * el usado en ese mismo proyecto para el Nothing Phone (3).
  */
 object VinylBeatAnimation {
-    private const val GRID_SIZE = 25
+    /** El tamaño para el que está dibujado el arte fijo de abajo: la matriz del Phone (3). */
+    private const val PHONE3_GRID_SIZE = 25
+    private const val GRID_SIZE = PHONE3_GRID_SIZE
     private const val CENTER = 12.0
     private const val MAX_RADIUS = 12.5
     private const val FRAME_DURATION_MS = 100L
+
+    /** Los mismos ocho pasos de giro que tiene el arte original. */
+    private const val FRAME_COUNT = 8
+
+    /** Qué parte del radio ocupa la etiqueta central en la versión generada. */
+    private const val LABEL_RADIUS_RATIO = 0.28
+
+    /** Medio ancho del destello giratorio, en radianes (~40° a cada lado). */
+    private const val HIGHLIGHT_ARC = 0.7
 
     private val shapedFrames = arrayOf(
         intArrayOf(255,255,255,255,255,255,255,255,255,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,0,255,255,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,255,255,0,0,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,205,0,0,255,255,0,205,0,0,0,165,0,0,0,0,255,255,205,0,0,0,0,165,0,0,0,205,0,255,255,0,255,0,0,205,0,0,0,0,255,255,255,205,205,0,0,0,0,205,0,0,255,0,255,255,0,255,0,0,255,0,0,0,0,255,255,0,255,255,0,0,0,0,255,0,0,255,0,255,255,0,255,0,0,205,0,0,0,0,205,205,255,255,255,0,0,0,0,205,0,0,255,0,255,255,0,205,0,0,0,165,0,0,0,0,205,255,255,0,0,0,0,165,0,0,0,205,0,255,255,0,0,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,205,0,0,255,255,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,255,255,0,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,0,255,255,255,255,255,255,255,255,255),
@@ -30,10 +41,89 @@ object VinylBeatAnimation {
         intArrayOf(255,255,255,255,255,255,255,255,255,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,205,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,165,0,205,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,205,0,0,255,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,205,0,255,0,0,255,255,0,0,0,0,0,0,0,0,0,0,255,205,205,0,0,0,0,0,165,0,0,205,0,255,255,0,165,0,0,0,0,0,0,0,255,255,255,205,255,0,0,0,0,0,0,0,205,0,255,255,0,165,0,0,0,0,0,0,0,255,255,0,255,255,0,0,0,0,0,0,0,165,0,255,255,0,205,0,0,0,0,0,0,0,255,205,255,255,255,0,0,0,0,0,0,0,165,0,255,255,0,205,0,0,165,0,0,0,0,0,205,205,255,0,0,0,0,0,0,0,0,0,0,255,255,0,0,255,0,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,255,0,0,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,205,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,0,255,255,255,255,255,255,255,255,255)
     )
 
-    /** Animación en bucle (8 frames) mientras la música está sonando. */
-    fun buildSpinAnimation(): GifAnimation {
-        val frames = shapedFrames.map { toBitmap(it) }
+    /**
+     * Animación en bucle (8 frames) mientras la música está sonando.
+     *
+     * @param size el lado de la matriz del móvil. 25 en el Phone (3), 13 en el (4a) Pro.
+     *
+     * En el Phone (3) devuelve **exactamente el mismo arte de siempre**, píxel a píxel: esos 8
+     * frames están dibujados a mano para su círculo de 489 LEDs y no se tocan.
+     *
+     * En cualquier otro tamaño se genera uno equivalente por código. Hace falta porque el arte
+     * fijo **no es un número que se pueda cambiar**: son datos de imagen para una rejilla de 25,
+     * y en una de 13 no encajan — dejarlo así significaba mandar un bitmap del tamaño
+     * equivocado y confiar en que el reescalado del SDK dejara algo reconocible, que con dibujo
+     * de puntos finos reducido a la mitad de resolución no pasa.
+     */
+    fun buildSpinAnimation(size: Int = PHONE3_GRID_SIZE): GifAnimation {
+        val frames = if (size == PHONE3_GRID_SIZE) {
+            shapedFrames.map { toBitmap(it) }
+        } else {
+            (0 until FRAME_COUNT).map { generateFrame(it, size) }
+        }
         return GifAnimation(frames, List(frames.size) { FRAME_DURATION_MS })
+    }
+
+    /**
+     * Un vinilo dibujado por fórmula, para matrices que no sean la del Phone (3).
+     *
+     * A trece píxeles de lado no cabe el detalle del original —los surcos finos se convierten en
+     * ruido—, así que se queda con lo único que lee un disco a ese tamaño: el borde, un par de
+     * surcos, la etiqueta central, y **un destello que gira**. El giro es lo que importa: es lo
+     * que distingue "hay música sonando" de "hay un círculo pintado".
+     */
+    private fun generateFrame(frameIndex: Int, size: Int): Bitmap {
+        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        for (row in 0 until size) {
+            for (col in 0 until size) {
+                val value = pixelValue(row, col, frameIndex, size)
+                bitmap.setPixel(col, row, Color.rgb(value, value, value))
+            }
+        }
+        return bitmap
+    }
+
+    /**
+     * El brillo (0-255) de un píxel del vinilo generado. **Pura y sin Android a propósito.**
+     *
+     * Separada de [generateFrame] porque `Bitmap` no existe en los tests unitarios de este
+     * proyecto —no hay Robolectric, y no se va a añadir por esto—, así que si la geometría
+     * viviera dentro del bucle de dibujo no habría forma de comprobar ni que el disco es
+     * redondo ni que el destello gira. Aquí sí.
+     */
+    fun pixelValue(row: Int, col: Int, frameIndex: Int, size: Int): Int {
+        // Centro real de píxeles, no size/2.0: con 13 columnas (0..12) el centro es 6, y usar
+        // 6,5 deja el disco descentrado medio píxel — que a este tamaño se nota.
+        val center = (size - 1) / 2.0
+        val radius = center
+        val angle = 2.0 * Math.PI * frameIndex / FRAME_COUNT
+
+        val dx = col - center
+        val dy = row - center
+        val distance = sqrt(dx * dx + dy * dy)
+
+        return when {
+            // Fuera del círculo no hay LED que encender.
+            distance > radius -> 0
+            // La etiqueta del centro, lo más brillante.
+            distance <= radius * LABEL_RADIUS_RATIO -> 255
+            // El borde del disco, marcado para que se lea como un círculo.
+            distance >= radius - 1.0 -> 205
+            else -> {
+                // El destello que gira: un sector del disco más encendido que el resto.
+                val pixelAngle = Math.atan2(dy, dx)
+                val difference = Math.abs(normalizeAngle(pixelAngle - angle))
+                if (difference < HIGHLIGHT_ARC) 165 else 60
+            }
+        }
+    }
+
+    /** Lleva un ángulo al rango -PI..PI, para poder medir distancias angulares sin saltos. */
+    private fun normalizeAngle(angle: Double): Double {
+        var result = angle
+        while (result > Math.PI) result -= 2.0 * Math.PI
+        while (result < -Math.PI) result += 2.0 * Math.PI
+        return result
     }
 
     private fun toBitmap(shaped: IntArray): Bitmap {

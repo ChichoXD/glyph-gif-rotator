@@ -18,14 +18,49 @@ import android.graphics.Bitmap
  */
 object GlyphLedLayout {
 
-    /** LEDs de cada fila, de arriba abajo. Suman 489. */
-    private val ROW_WIDTHS = intArrayOf(
-        7, 11, 15, 17, 19, 21, 21, 23, 23, 25, 25, 25, 25,
-        25, 25, 25, 23, 23, 21, 21, 19, 17, 15, 11, 7,
-    )
+    /**
+     * LEDs de cada fila, de arriba abajo, para una matriz de lado [size].
+     *
+     * Esto era una tabla fija de 25 números escrita a mano contando diseños exportados de Glyph
+     * Museum, y por eso el Phone (4a) Pro se quedaba fuera: su círculo tiene 137 LEDs en 13×13 y
+     * no había tabla equivalente. Se dio por irresoluble más de una vez —"el SDK no publica
+     * ninguna máscara, deducir un radio que cuadre con 137 sería inventarlo"—.
+     *
+     * Resultó que el SDK **sí** trae la fórmula, viva, en `GlyphMatrixUtils.generateMatrixProgress()`:
+     *
+     *     cx = cy = R = (size - 1) / 2      Rtol2 = (R + 0.5)^2
+     *     por fila:  maxDx = sqrt(Rtol2 - dy^2),  de ceil(cx - maxDx) a floor(cx + maxDx)
+     *
+     * Aplicada a 25 reproduce **exactamente** la tabla que estaba escrita a mano, fila a fila —dos
+     * caminos independientes dando los mismos 25 números—, y a 13 da 137. Ver `CircleMaskTest`.
+     *
+     * Lo que sigue **NO CONFIRMADO** es que el hardware ponga los diodos justo ahí: el SDK nunca
+     * declara una máscara explícita. Para el Phone (3) hay el contraste de Glyph Museum; para el
+     * 4a Pro, ninguno hasta que haya un móvil delante. Es una hipótesis muy bien apoyada, no un
+     * hecho verificado.
+     */
+    fun rowWidths(size: Int): IntArray {
+        val r = (size - 1) / 2.0
+        val rtol2 = (r + 0.5) * (r + 0.5)
+        return IntArray(size) { y ->
+            val dy2 = (y - r) * (y - r)
+            if (dy2 > rtol2) {
+                0
+            } else {
+                val maxDx = kotlin.math.sqrt(kotlin.math.max(0.0, rtol2 - dy2))
+                val xLeft = kotlin.math.ceil(r - maxDx).toInt().coerceAtLeast(0)
+                val xRight = kotlin.math.floor(r + maxDx).toInt().coerceAtMost(size - 1)
+                if (xRight < xLeft) 0 else xRight - xLeft + 1
+            }
+        }
+    }
 
+    /** Cuántos LEDs hay de verdad dentro del círculo de una matriz de ese lado. */
+    fun ledCount(size: Int): Int = rowWidths(size).sum()
+
+    /** El Phone (3), que es donde nació esto. Se conservan por compatibilidad. */
     const val LED_COUNT = 489
-    val MATRIX_SIZE: Int get() = com.nothing.ketchum.Common.getDeviceMatrixLength().takeIf { it > 0 } ?: 25
+    const val MATRIX_SIZE = 25
 
     /**
      * Convierte un frame en crudo (un valor por LED) a un bitmap cuadrado en gris.
@@ -34,10 +69,11 @@ object GlyphLedLayout {
      */
     fun toBitmap(leds: IntArray, size: Int = MATRIX_SIZE): Bitmap {
         val pixels = IntArray(size * size)
+        val rowWidths = rowWidths(size)
         var index = 0
 
         for (y in 0 until size) {
-            val width = ROW_WIDTHS.getOrNull(y) ?: 0
+            val width = rowWidths.getOrNull(y) ?: 0
             val startX = (size - width) / 2
             for (offset in 0 until width) {
                 val value = leds.getOrNull(index) ?: 0

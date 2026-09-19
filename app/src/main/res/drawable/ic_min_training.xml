@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Una línea que sube con sus puntos.
+
+    Lienzo de 24, trazo de 1.5 y extremos redondos, como toda la familia. Se tiñe desde
+    fuera con app:tint, así que el color de aquí es solo el de por defecto.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/glyph_white">
+
+    <path
+        android:pathData="M4,18 L9,13 L13,15 L20,7"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M4,18 m-1.4,0 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0"
+        android:fillColor="@color/glyph_white" />
+    <path
+        android:pathData="M20,7 m-1.4,0 a1.4,1.4 0 1,0 2.8,0 a1.4,1.4 0 1,0 -2.8,0"
+        android:fillColor="@color/glyph_white" />
+
+</vector>

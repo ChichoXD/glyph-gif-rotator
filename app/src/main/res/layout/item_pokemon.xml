@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    La ficha de un Pokémon, como módulo de un aparato y no como carta.
+
+    Antes era "#015 Beedrill" en una línea, el nivel suelto a la derecha y "BUG / POISON ·
+    0/300 EXP" apretado debajo: cuatro datos distintos con el mismo peso, que es lo mismo que
+    no tener jerarquía. Ahora hay identidad arriba (número, nombre, tipos) y lectura debajo
+    (nivel y experiencia como filas de etiqueta y valor, alineadas a la derecha como en un
+    instrumento).
+
+    La barra continua de Material se sustituye por segmentos: es el mismo idioma que la Matrix
+    de atrás, y se lee sin estimar longitudes. Ver DISENO.md.
+-->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/screen_padding"
+    android:layout_marginEnd="@dimen/screen_padding"
+    android:layout_marginTop="@dimen/space_m"
+    app:cardBackgroundColor="@color/glyph_surface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/glyph_divider"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_l">
+
+        <!-- Identidad: quién es -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!--
+                El sprite va dentro de una tarjeta con el radio a la mitad del lado: así el
+                recorte circular lo hace la propia vista y no hace falta tocar el GIF.
+            -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSprite"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="@dimen/space_l"
+                app:cardBackgroundColor="@color/glyph_card"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glyph_divider"
+                app:strokeWidth="1dp">
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/imageSprite"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/content_desc_sprite"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textPokemonDex"
+                    style="@style/Nothing.SectionLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="#025" />
+
+                <TextView
+                    android:id="@+id/textPokemonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.02"
+                    android:textAllCaps="true"
+                    android:textColor="@color/glyph_white"
+                    android:textSize="18sp"
+                    tools:text="Pikachu" />
+
+                <TextView
+                    android:id="@+id/textPokemonTypes"
+                    style="@style/Nothing.SectionLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    tools:text="ELECTRIC" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Lectura: cómo va -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Nothing.SectionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pokemon_row_level" />
+
+            <TextView
+                android:id="@+id/textPokemonLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textColor="@color/glyph_white"
+                android:textSize="13sp"
+                tools:text="12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Nothing.SectionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pokemon_row_exp" />
+
+            <TextView
+                android:id="@+id/textPokemonExp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textColor="@color/glyph_white"
+                android:textSize="13sp"
+                tools:text="090 / 300" />
+        </LinearLayout>
+
+        <dev.glyphrotator.app.ui.SegmentBarView
+            android:id="@+id/segmentExp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s" />
+
+        <!--
+            Entrenar manda; usar objeto acompaña. El tope va aparte y más abajo porque no es una
+            acción del día a día: se pone una vez y se olvida.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonTrain"
+                style="@style/Nothing.Button.Outlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:layout_weight="1"
+                android:minHeight="44dp"
+                android:text="@string/pokemon_set_partner"
+                android:textSize="11sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonUseItem"
+                style="@style/Nothing.Button.Outlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_xs"
+                android:layout_weight="1"
+                android:minHeight="44dp"
+                android:text="@string/pokemon_use_item"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLevelCap"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:minHeight="40dp"
+            android:text="@string/pokemon_level_cap"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

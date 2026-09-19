@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El widget: compañero arriba, huevo abajo.
+
+    Solo texto y barras de progreso a propósito. Un widget con sprites tendría que decodificar
+    imágenes en cada refresco y RemoteViews no deja hacerlo barato; y lo que uno mira de reojo
+    desde el escritorio es "cuánto le falta", no la carita.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:id="@+id/widgetRoot">
+
+    <TextView
+        android:id="@+id/widgetPartnerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/widget_no_partner"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/widgetPartnerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_grey"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.18"
+        android:textAllCaps="true" />
+
+    <ImageView
+        android:id="@+id/widgetPartnerProgress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <!--
+        La línea separadora, como FrameLayout y no como View.
+
+        Un `<View>` a secas **no se puede inflar dentro de un widget**: RemoteViews solo admite
+        una lista cerrada de clases y esa no está. El resultado era el "no se puede cargar" del
+        escritorio, sin más pista que un aviso en el registro del sistema.
+    -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/glyph_divider" />
+
+    <TextView
+        android:id="@+id/widgetEggTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_white"
+        android:textSize="13sp"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/widgetEggDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_grey"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.18"
+        android:textAllCaps="true" />
+
+    <ImageView
+        android:id="@+id/widgetEggProgress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El punto del indicador de páginas: apagado por defecto, encendido en la página actual.
+    Mismo idioma que el resto — un LED que se enciende, no una barra que crece.
+
+    Los apagados van en el gris de los textos y no en el de los separadores: a #242424 sobre negro
+    no se veian, y un indicador que no se ve no indica nada.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_white" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_grey" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+</selector>

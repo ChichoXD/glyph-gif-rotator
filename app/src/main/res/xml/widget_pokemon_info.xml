@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    updatePeriodMillis va a media hora, que es el mínimo que Android respeta de todas formas:
+    pedir menos no acelera nada y sí gasta batería. Los cambios que importan (una captura, una
+    eclosión, un nivel) los empuja el propio servicio en cuanto pasan, así que el periodo solo
+    hace de red de seguridad.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:previewLayout="@layout/widget_preview_pokemon"
+    android:initialLayout="@layout/widget_pokemon"
+    android:minWidth="180dp"
+    android:minHeight="110dp"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen" />

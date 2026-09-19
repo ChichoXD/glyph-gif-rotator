@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Marco de ventana estilo pixel art: dos recuadros anidados y **esquinas rectas**.
+
+    Sin redondear a propósito. Una esquina redonda es una curva, y una curva es justo lo que una
+    pantalla de píxeles no sabe dibujar; el borde recto y doble es el lenguaje de las ventanas de
+    los juegos de 8 bits, y es lo que hace que esto y los iconos de puntos parezcan del mismo
+    sitio.
+
+    El truco del doble borde —blanco fuera, negro dentro— es lo que le da el relieve sin usar
+    sombras, que a este tamaño se verían sucias.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Borde exterior claro -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_white" />
+        </shape>
+    </item>
+
+    <!-- Separación oscura, que es la que crea el relieve -->
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_black" />
+        </shape>
+    </item>
+
+    <!-- Borde interior fino, otra vez claro -->
+    <item
+        android:left="6dp"
+        android:top="6dp"
+        android:right="6dp"
+        android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_divider" />
+        </shape>
+    </item>
+
+    <!-- El fondo real de la ventana -->
+    <item
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_card" />
+        </shape>
+    </item>
+</layer-list>

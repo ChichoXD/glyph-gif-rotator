@@ -57,6 +57,46 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <!--
+        Cabecera de sección con tile: el título y la línea que lo acompaña.
+
+        El título es más grande que `SectionLabel` y en blanco, porque ahora encabeza un bloque
+        con icono al lado y no una lista suelta: al mismo tamaño gris, el icono se comía el texto.
+
+        La línea de debajo existe para no tener que abrir una sección y ver qué hay dentro. Dice
+        qué se toca, no qué es — "sonido, Matrix y botón Glyph" sirve para decidir, "ajustes de
+        Pokémon" solo repetiría el título.
+    -->
+    <style name="Nothing.SectionTitle">
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Nothing.SectionHint">
+        <item name="android:textColor">@color/glyph_grey</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <!--
+        La etiqueta bajo el icono de cada pestaña.
+
+        En caja mixta y no en mayúsculas, al contrario que SectionLabel: aquí hay ocho seguidas y
+        compitiendo por el mismo ancho, y en versales con tracking se convierten en una tira gris
+        indistinguible — que es exactamente el problema que este rediseño viene a arreglar.
+    -->
+    <style name="Nothing.TabLabel">
+        <item name="android:textColor">@color/tab_label_color</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
     <!-- Texto secundario/descriptivo -->
     <!-- Tarjeta contenedora: borde fino sobre negro, sin sombra. -->
     <style name="Nothing.Card" parent="Widget.Material3.CardView.Outlined">
@@ -74,11 +114,31 @@
         <item name="android:background">@color/glyph_divider</item>
     </style>
 
+    <!--
+        Texto secundario. Interlineado a 1.5: a 1.25 los párrafos de dos y tres líneas se leían
+        apretados, y la estética técnica no es excusa para que cueste leer.
+    -->
     <style name="Nothing.Caption">
         <item name="android:textColor">@color/glyph_grey</item>
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">monospace</item>
-        <item name="android:lineSpacingMultiplier">1.25</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <!--
+        Estado vacío: dos líneas, la primera dice qué falta y la segunda en qué punto está el
+        sistema. Se lee como la pantalla de un aparato, no como una disculpa.
+
+        Antes eran frases sueltas —"Inventario vacío.", "Sin compañero. Elige uno del equipo
+        para que gane experiencia..."— con el mismo aspecto que cualquier otro texto gris. Un
+        hueco también comunica, y merece su propia voz.
+    -->
+    <style name="Nothing.EmptyState">
+        <item name="android:textColor">@color/glyph_grey</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:lineSpacingMultiplier">1.6</item>
     </style>
 
     <!-- Fila de ajuste con interruptor -->
@@ -97,6 +157,62 @@
         <item name="android:textSize">13sp</item>
         <item name="android:minHeight">52dp</item>
         <item name="cornerRadius">26dp</item>
+    </style>
+
+    <!--
+        Control de aparato: icono arriba, etiqueta debajo, contorno rojo.
+
+        No es una píldora como los otros dos botones, es un **tile**: cuadrado de esquina blanda,
+        más alto que ancho de contenido, con el icono centrado encima del texto. La diferencia de
+        forma es la que separa "esto le hace algo a la Matrix ahora mismo" de "esto te lleva a otra
+        pantalla" — y se nota antes de leer la etiqueta, que es de lo que se trata.
+
+        El rojo va en el contorno y en el icono, nunca de relleno: estos dos no confirman nada,
+        actúan. El relleno rojo se queda para aceptar y para seguir adelante.
+    -->
+    <style name="Nothing.Button.Control" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="strokeColor">@color/glyph_red</item>
+        <item name="strokeWidth">@dimen/hairline</item>
+        <item name="android:minHeight">76dp</item>
+        <item name="cornerRadius">@dimen/tab_tile_radius</item>
+        <item name="iconGravity">top</item>
+        <item name="iconTint">@color/glyph_red</item>
+        <item name="iconSize">@dimen/tab_icon</item>
+        <item name="iconPadding">@dimen/space_s</item>
+    </style>
+
+    <!--
+        El tile de navegación: mismo cuerpo que [Nothing.Button.Control] pero en gris.
+
+        La diferencia de color es la que separa dos cosas distintas: el rojo de `Control` marca que
+        eso **le hace algo a la Matrix ahora mismo**, y esto solo te lleva a otra pantalla. Navegar
+        no es un estado, así que no se pinta de rojo — es la misma regla por la que LOGROS dejó de
+        ir relleno el 20 de agosto.
+
+        Van de dos en dos en cuadrícula: cinco botones anchos apilados eran cinco renglones que
+        había que leer de arriba abajo, y en dos columnas se abarcan de un vistazo.
+    -->
+    <style name="Nothing.Button.Tile" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/glyph_white</item>
+        <item name="strokeColor">@color/glyph_border</item>
+        <item name="strokeWidth">@dimen/hairline</item>
+        <item name="android:minHeight">72dp</item>
+        <item name="cornerRadius">@dimen/tab_tile_radius</item>
+        <item name="iconGravity">top</item>
+        <item name="iconTint">@color/glyph_led_on</item>
+        <item name="iconSize">@dimen/tab_icon</item>
+        <item name="iconPadding">@dimen/space_s</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
     </style>
 
     <!-- Botón secundario: solo contorno fino, sin relleno -->

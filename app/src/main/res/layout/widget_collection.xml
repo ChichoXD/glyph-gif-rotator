@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La colección: el sprite **a color y grande**, con la pokéball en una esquina.
+
+    Este no usa el molde de puntos de los demás a propósito. En los otros widgets el dibujo es
+    un icono que acompaña a un dato; aquí el Pokémon **es** el contenido, y reducirlo a doce por
+    doce puntos en blanco y negro sería tirar lo único que hay que enseñar.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/collectionRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--
+            El sprite animado. RemoteViews no reproduce GIFs, así que se mete un frame por hijo
+            y el ViewFlipper los va pasando solo: es la única forma de que algo se mueva en el
+            escritorio sin un servicio detrás gastando batería.
+        -->
+        <ViewFlipper
+            android:id="@+id/collectionFlipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autoStart="true"
+            android:flipInterval="140" />
+
+        <ImageView
+            android:id="@+id/collectionBall"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="bottom|end"
+            android:alpha="0.85"
+            android:src="@drawable/ic_pokeball"
+            android:contentDescription="@string/widget_collection_title" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/collectionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/collectionDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/glyph_grey"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.18"
+        android:textAllCaps="true" />
+</LinearLayout>

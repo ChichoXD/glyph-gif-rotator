@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Solo para la vista previa del selector de widgets (android:previewLayout).
+
+    Es una copia del molde con texto de muestra dentro. Hace falta aparte porque el
+    layout de verdad nace con los TextView vacios -los rellena RemoteViews al
+    colocarlo-, asi que apuntar la vista previa al layout real enseñaba una caja
+    negra y no se distinguia un widget de otro.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.2"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/glyph_grey"
+            android:textSize="10sp"
+            android:text="@string/widget_egg_title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:maxLines="1"
+            android:textColor="@color/glyph_white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="48 %" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="14dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_preview_segments" />
+</LinearLayout>

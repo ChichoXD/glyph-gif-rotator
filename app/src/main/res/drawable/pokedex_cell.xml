@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La celda de la Pokédex: un módulo, no una carta.
+
+    Fondo apenas más claro que el negro y sin borde. Con borde, 151 celdas dibujan una malla de
+    líneas que es lo único que se ve; sin él, lo que separa una celda de otra es el propio
+    cambio de superficie, que es como se separan las piezas de un aparato.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/glyph_card" />
+    <corners android:radius="18dp" />
+</shape>

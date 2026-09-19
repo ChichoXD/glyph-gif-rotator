@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Apagar la Matrix ahora.
+
+    El símbolo de encendido de toda la vida: el arco abierto por arriba y la barra saliendo por el
+    hueco. Se dibuja con el hueco arriba y no cerrado, porque un círculo con una raya dentro se
+    confunde con un icono de información a este tamaño.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/glyph_white">
+
+    <path
+        android:pathData="M17.2,7.8 a7,7 0 1,1 -10.4,0"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M12,3 L12,11.5"
+        android:strokeColor="@color/glyph_white"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+</vector>

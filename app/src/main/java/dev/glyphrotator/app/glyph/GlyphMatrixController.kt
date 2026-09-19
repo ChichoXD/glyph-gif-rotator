@@ -103,9 +103,13 @@ class GlyphMatrixController(context: Context) {
             .setBrightness(255)
             .build()
 
+        // La fila se calcula: con 9 clavado, en una matriz de 13 el número se cortaba por abajo.
         val textObject = GlyphMatrixObject.Builder()
             .setText(percentNumber)
-            .setPosition(GlyphTextMetrics.centeredX(percentNumber, matrixSize), 9)
+            .setPosition(
+                GlyphTextMetrics.centeredX(percentNumber, matrixSize),
+                batteryNumberY(matrixSize),
+            )
             .setBrightness(255)
             .build()
 
@@ -132,15 +136,24 @@ class GlyphMatrixController(context: Context) {
         val gmm = manager ?: return
         if (!isConnected) return
 
+        // Con las filas 6 y 15 clavadas, en una matriz de 13 el AM/PM caía **fuera de la
+        // pantalla**. Se calculan a partir del tamaño real: si las dos líneas caben, cada una en
+        // la suya; si no, la hora sola y centrada.
+        val rows = GlyphTextMetrics.twoLineRows(matrixSize)
+        val timeY = rows?.first ?: GlyphTextMetrics.centeredY(matrixSize)
+
         val timeObject = GlyphMatrixObject.Builder()
             .setText(timeText)
-            .setPosition(timeX, 6)
+            .setPosition(timeX, timeY)
             .setBrightness(brightness)
             .build()
 
         val amPmObject = GlyphMatrixObject.Builder()
-            .setText(amPmText)
-            .setPosition(GlyphTextMetrics.centeredX(amPmText, matrixSize), 15)
+            .setText(if (rows == null) "" else amPmText)
+            .setPosition(
+                GlyphTextMetrics.centeredX(amPmText, matrixSize),
+                rows?.second ?: 0,
+            )
             .setBrightness((brightness * 0.8f).toInt().coerceIn(0, 255))
             .build()
 
@@ -230,6 +243,16 @@ class GlyphMatrixController(context: Context) {
         // desmontado y su `init()` no volvía a conectar nunca. La Matrix quedaba muerta hasta
         // cerrar la app del todo. Se deja la conexión montada: la pantalla ya está apagada.
     }
+
+    /**
+     * Dónde va el número del porcentaje sobre el líquido.
+     *
+     * No es el centro exacto: va algo más abajo a propósito, que es donde estaba en la matriz de
+     * 25 (fila 9 de 25). Se mantiene esa proporción en vez de centrarlo, para que el dibujo siga
+     * leyéndose igual — pero sin salirse cuando la matriz es más pequeña.
+     */
+    private fun batteryNumberY(size: Int): Int =
+        ((size * 9) / 25).coerceAtMost(size - GlyphTextMetrics.FONT_HEIGHT).coerceAtLeast(0)
 
     private companion object {
         const val TAG = "GlyphMatrixController"

@@ -18,29 +18,77 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-        <!-- Cabecera -->
+        <!--
+            Cabecera.
+
+            Antes eran dos líneas de texto sueltas pegadas al borde, que es lo que hace que una
+            app parezca un formulario. Ahora hay una entradilla pequeña arriba, el título grande
+            debajo y el resumen en gris: tres tamaños distintos, que es lo que el ojo lee como
+            jerarquía. El título se agranda y se le quita separación entre letras, porque a 20sp
+            y muy espaciado se leía como una etiqueta y no como el nombre de la app.
+        -->
         <TextView
-            android:id="@+id/textTitle"
+            style="@style/Nothing.SectionLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="monospace"
-            android:letterSpacing="0.14"
-            android:text="@string/main_title"
-            android:textAllCaps="true"
-            android:textColor="@color/glyph_white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:text="@string/main_eyebrow" />
+
+        <!--
+            El titulo y, a su lado, el boton de ayuda. Pequeño y sin relleno: esta ahi para
+            quien lo busque, no para competir con el nombre de la app.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <dev.glyphrotator.app.ui.DotTextView
+                android:id="@+id/textTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/buttonHelp"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/tutorial_button"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_info"
+                app:tint="@color/glyph_grey" />
+
+            <!--
+                La tuerca de los ajustes, a la derecha del todo como en el panel A de la
+                referencia. Va después de la ayuda a propósito: la ayuda explica lo que estás
+                viendo y la tuerca te saca de aquí, así que la que se lleva fuera va la última.
+            -->
+            <ImageView
+                android:id="@+id/buttonSettings"
+                android:layout_width="@dimen/touch_target"
+                android:layout_height="@dimen/touch_target"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/tab_settings"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_settings"
+                app:tint="@color/glyph_grey" />
+        </LinearLayout>
 
         <TextView
             style="@style/Nothing.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/space_xxl"
             android:text="@string/main_subtitle" />
 
         <!--
@@ -50,29 +98,65 @@
             los saca de ahí y se los pasa al carrusel al arrancar. Se hace así para que cada vista
             siga siendo la misma de siempre —los interruptores, los botones, la lista— y el
             código que ya los maneja no tenga que cambiar ni una línea por haberlos repartido.
+
+            Sin subrayado (`tabIndicatorHeight` a 0) desde el rediseño: cada pestaña es ahora un
+            tile que ya marca por sí mismo si está encendida, con contorno y relleno. El subrayado
+            encima sería un segundo indicador diciendo lo mismo, y además cruzaría por debajo de
+            los tiles sin alinearse con ninguno.
+
+            Y con el fondo transparente a mano: el estilo de Material3 le pone `colorSurface`, que
+            aquí no es negro, y dejaba una banda gris de borde a borde detrás de los tiles. Los
+            tiles tienen que flotar sobre el negro de la pantalla; con la banda, la fila se leía
+            como una barra de herramientas pegada debajo de la cabecera.
         -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/space_xl"
+            android:background="@android:color/transparent"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingEnd="@dimen/screen_padding"
             app:tabGravity="start"
-            app:tabIndicatorColor="@color/glyph_white"
-            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/glyph_white"
-            app:tabTextColor="@color/glyph_grey" />
+            app:tabPaddingEnd="@dimen/space_xs"
+            app:tabPaddingStart="@dimen/space_xs"
+            app:tabRippleColor="@color/tab_ripple"
+            app:tabUnboundedRipple="false" />
 
-        <View
-            style="@style/Nothing.Divider"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp" />
+        <!--
+            Aquí había un hilo de borde a borde separando las pestañas del contenido. Se quitó con
+            la banda gris: eran las dos piezas que hacían leer la fila como una barra de
+            herramientas pegada bajo la cabecera, en vez de como tiles flotando sobre el negro.
+
+            No hace falta nada en su lugar. El tile encendido ya dice dónde estás, y la primera
+            tarjeta baja con su propio margen, así que la separación existe sin tener que
+            dibujarla.
+        -->
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
+        <!--
+            Los ajustes dejan de ser una pestaña y pasan a ser una pantalla aparte, a la que se
+            llega por la tuerca de la cabecera. Es lo que enseña el panel A del mockup del
+            dashboard, y de paso quita una de las ocho pestañas de la fila.
+
+            Se monta como hueco vacío y `pageSettings` se mete aquí desde el código, igual que las
+            demás páginas salen de `pageHolder`. Así el XML de los ajustes no se toca y ni una sola
+            de las decenas de escuchas que MainActivity le tiene puestas deja de funcionar.
+        -->
+        <FrameLayout
+            android:id="@+id/settingsOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/pageHolder"
@@ -90,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="40dp">
+                    android:paddingBottom="@dimen/scroll_bottom">
 
         <!-- ============================================================
              Mando principal: lo único que se toca a diario
@@ -99,15 +183,15 @@
             style="@style/Nothing.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xl"
+            android:layout_marginEnd="@dimen/screen_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="@dimen/card_padding">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchRotation"
@@ -118,32 +202,33 @@
 
                 <View
                     style="@style/Nothing.Divider"
-                    android:layout_marginTop="14dp" />
+                    android:layout_marginTop="@dimen/space_l" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="@dimen/space_l"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonRefresh"
-                        style="@style/Nothing.Button.Outlined"
+                        style="@style/Nothing.Button.Control"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:text="@string/button_refresh" />
+                        android:text="@string/button_refresh"
+                        app:icon="@drawable/ic_min_sync" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonTurnOff"
-                        style="@style/Nothing.Button.Outlined"
+                        style="@style/Nothing.Button.Control"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="@dimen/space_m"
                         android:layout_weight="1"
-                        android:text="@string/button_turn_off_now" />
+                        android:text="@string/button_turn_off_now"
+                        app:icon="@drawable/ic_min_power" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -154,58 +239,43 @@
             style="@style/Nothing.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
             app:strokeColor="@color/glyph_red">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="@dimen/card_padding">
 
+                <!--
+                    El aviso lleva icono además del contorno rojo. Es la única tarjeta de la app
+                    que sale sola para decir que algo va mal, y el color por sí solo no lo cuenta:
+                    quien no distinga el rojo ve una tarjeta más.
+                -->
                 <TextView
                     android:id="@+id/textBatteryWarning"
                     style="@style/Nothing.Caption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_m"
+                    android:gravity="center_vertical"
                     android:text="@string/battery_warning"
-                    android:textColor="@color/glyph_white" />
+                    android:textColor="@color/glyph_white"
+                    app:drawableStartCompat="@drawable/ic_min_warning"
+                    app:drawableTint="@color/glyph_red" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonFixBattery"
                     style="@style/Nothing.Button.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="@dimen/space_l"
                     android:text="@string/button_fix_battery" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!--
-            Reportar un fallo, en la primera pestaña y no escondido en un menú: quien encuentra
-            algo raro lo reporta en ese momento o no lo reporta nunca.
-        -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonLanguage"
-            style="@style/Nothing.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/button_language" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonReport"
-            style="@style/Nothing.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/button_report" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
@@ -219,34 +289,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="40dp">
+                    android:paddingBottom="@dimen/scroll_bottom">
 
         <!-- ============================================================
              Qué se muestra en la Matrix
              ============================================================ -->
-        <TextView
-            style="@style/Nothing.SectionLabel"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/section_modes" />
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xxl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/tab_tile"
+                android:layout_height="@dimen/tab_tile"
+                android:background="@drawable/bg_section_tile"
+                android:contentDescription="@null"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_visuals"
+                app:tint="@color/glyph_led_on" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_l"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Nothing.SectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/section_modes" />
+
+                <TextView
+                    style="@style/Nothing.SectionHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/section_hint_modes" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Nothing.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="18dp"
-                android:paddingVertical="6dp">
+                android:paddingHorizontal="@dimen/card_padding"
+                android:paddingVertical="@dimen/space_s">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchClock"
@@ -278,33 +380,65 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="40dp">
+                    android:paddingBottom="@dimen/scroll_bottom">
 
         <!-- ============================================================
              Batería y Bluetooth: se tocan una vez y se olvidan
              ============================================================ -->
-        <TextView
-            style="@style/Nothing.SectionLabel"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/section_limits" />
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xxl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/tab_tile"
+                android:layout_height="@dimen/tab_tile"
+                android:background="@drawable/bg_section_tile"
+                android:contentDescription="@null"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_battery"
+                app:tint="@color/glyph_led_on" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_l"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Nothing.SectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/section_limits" />
+
+                <TextView
+                    style="@style/Nothing.SectionHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/section_hint_limits" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Nothing.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="@dimen/card_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -316,7 +450,7 @@
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="@dimen/space_s"
                         android:layout_weight="1"
                         android:hint="@string/label_dim_threshold">
 
@@ -333,7 +467,7 @@
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="@dimen/space_s"
                         android:layout_weight="1"
                         android:hint="@string/label_critical_threshold">
 
@@ -349,14 +483,14 @@
 
                 <View
                     style="@style/Nothing.Divider"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="@dimen/space_l" />
 
                 <TextView
                     android:id="@+id/textBluetoothGifSelected"
                     style="@style/Nothing.Caption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/space_l"
                     android:text="@string/label_bluetooth_gif_none" />
 
                 <com.google.android.material.button.MaterialButton
@@ -364,11 +498,710 @@
                     style="@style/Nothing.Button.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/space_m"
                     android:text="@string/button_pick_bluetooth_gif" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+                        <!--
+                La Pokédex: las 151, registradas o no.
+
+                Es una rejilla y no una lista porque lo que cuenta aquí no es cada ficha, es
+                cuánto queda por llenar. Va antes de Juego a propósito: es lo que uno abre a
+                mirar.
+            -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pagePokedex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/space_m"
+                android:paddingEnd="@dimen/space_m"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_xxl" />
+
+<androidx.core.widget.NestedScrollView
+                android:id="@+id/pageGame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/scroll_bottom">
+
+        <!-- ============================================================
+             Pokémon
+             ============================================================ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xxl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/tab_tile"
+                android:layout_height="@dimen/tab_tile"
+                android:background="@drawable/bg_section_tile"
+                android:contentDescription="@null"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_pokeball"
+                app:tint="@color/glyph_led_on" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_l"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Nothing.SectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pokemon_title" />
+
+                <TextView
+                    style="@style/Nothing.SectionHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/section_hint_pokemon" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Nothing.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonOpenPokemon"
+                    style="@style/Nothing.Button.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_open_pokemon" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonTestCatch"
+                    style="@style/Nothing.Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:text="@string/button_test_catch_animation" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonWeather"
+                    style="@style/Nothing.Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:text="@string/button_enable_weather" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonTestEgg"
+                    style="@style/Nothing.Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:text="@string/button_test_egg" />
+
+                <!--
+                    El cuadro de equilibrio y el interruptor del modo demo. Va en Juego y no en
+                    Ajustes porque no es una preferencia: es la herramienta para mirar los
+                    numeros del juego y decidir si algo esta facil o dificil.
+                -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonBalance"
+                    style="@style/Nothing.Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:text="@string/balance_button" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <!-- ============================================================
+                 Uso del teléfono: cuánto lo miras
+                 ============================================================ -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageUsage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/scroll_bottom">
+
+                    <!-- Cabecera de sección con tile, la misma que el resto de pestañas. -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/tab_tile"
+                            android:layout_height="@dimen/tab_tile"
+                            android:background="@drawable/bg_section_tile"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/space_m"
+                            android:src="@drawable/ic_min_stats"
+                            app:tint="@color/glyph_led_on" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_l"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Nothing.SectionTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/section_usage" />
+
+                            <TextView
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/section_hint_usage" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <TextView
+                            android:id="@+id/textUsageToday"
+                            style="@style/Nothing.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/card_padding"
+                            android:paddingVertical="@dimen/space_m" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        style="@style/Nothing.SectionLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:text="@string/usage_screen_time" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <dev.glyphrotator.app.ui.SplineChartView
+                            android:id="@+id/chartUsageMinutes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/space_s"
+                            android:paddingVertical="@dimen/space_s" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        style="@style/Nothing.SectionLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:text="@string/usage_unlocks" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/space_s"
+                            android:paddingVertical="@dimen/space_s">
+
+                            <dev.glyphrotator.app.ui.ComparisonBarsView
+                                android:id="@+id/chartUsageUnlocks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/textUnlocksLegend"
+                                style="@style/Nothing.Caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:paddingHorizontal="@dimen/space_s"
+                                android:text="@string/usage_unlocks_legend" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        style="@style/Nothing.SectionLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:text="@string/usage_sleep" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/card_padding"
+                            android:paddingVertical="@dimen/space_m">
+
+                            <dev.glyphrotator.app.ui.DotCalendarView
+                                android:id="@+id/calendarSleep"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/textSleepSummary"
+                                style="@style/Nothing.Caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_m" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <!-- ============================================================
+                 Ajustes: todo lo que se elige, junto
+                 ============================================================ -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/pageSettings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/scroll_bottom">
+
+                    <!--
+                        Cada sección de ajustes se encabeza con un tile: icono a la izquierda,
+                        título y una línea que dice qué se toca dentro. Es el lenguaje de la
+                        referencia, y resuelve un problema real: con solo la etiqueta gris había
+                        que abrir la sección para saber si lo que buscabas estaba ahí.
+
+                        El tile es el mismo cuadrado de esquina blanda que el de las pestañas,
+                        para que la app se lea como un mismo aparato.
+                    -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/tab_tile"
+                            android:layout_height="@dimen/tab_tile"
+                            android:background="@drawable/bg_section_tile"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/space_m"
+                            android:src="@drawable/ic_min_widget"
+                            app:tint="@color/glyph_led_on" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_l"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Nothing.SectionTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_section_widgets" />
+
+                            <TextView
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/settings_hint_widgets" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchWidgetColor"
+                                style="@style/Nothing.SwitchRow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_widget_color" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchWidgetAnimated"
+                                style="@style/Nothing.SwitchRow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_m"
+                                android:text="@string/settings_widget_animated" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:id="@+id/headerSettingsPokemon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/tab_tile"
+                            android:layout_height="@dimen/tab_tile"
+                            android:background="@drawable/bg_section_tile"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/space_m"
+                            android:src="@drawable/ic_min_pokeball"
+                            app:tint="@color/glyph_led_on" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_l"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Nothing.SectionTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_section_pokemon" />
+
+                            <TextView
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/settings_hint_pokemon" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSettingsPokemon"
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchPokemonMod"
+                                style="@style/Nothing.SwitchRow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_pokemon_mod" />
+
+                            <TextView
+                                android:id="@+id/textPokemonModHint"
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/settings_pokemon_mod_hint" />
+
+                            <View
+                                android:id="@+id/dividerPokemonMod"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="@dimen/space_m"
+                                android:background="@color/glyph_led_off" />
+
+                            <LinearLayout
+                                android:id="@+id/groupPokemonModOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_m"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchCryOnTap"
+                                    style="@style/Nothing.SwitchRow"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/settings_cry_on_tap" />
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchShowOnTap"
+                                    style="@style/Nothing.SwitchRow"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_m"
+                                    android:text="@string/settings_show_on_tap" />
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchPartnerOnButton"
+                                    style="@style/Nothing.SwitchRow"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_m"
+                                    android:text="@string/settings_partner_button" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/buttonCrySet"
+                                    style="@style/Nothing.Button.Outlined"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_l"
+                                    android:text="@string/cry_choose" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:id="@+id/headerSettingsHabits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/tab_tile"
+                            android:layout_height="@dimen/tab_tile"
+                            android:background="@drawable/bg_section_tile"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/space_m"
+                            android:src="@drawable/ic_min_habits"
+                            app:tint="@color/glyph_led_on" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_l"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Nothing.SectionTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_section_habits" />
+
+                            <TextView
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/settings_hint_habits" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSettingsHabits"
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonSettingsWater"
+                                style="@style/Nothing.Button.Outlined"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/water_settings" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonSettingsSleep"
+                                style="@style/Nothing.Button.Outlined"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_m"
+                                android:text="@string/button_sleep_settings" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonSettingsHabits"
+                                style="@style/Nothing.Button.Outlined"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_m"
+                                android:text="@string/button_habits" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!--
+                        Reportar un fallo tiene sección propia desde el rediseño. Estaba metido
+                        dentro de la tarjeta de Seguimiento, encima como único botón rojo relleno
+                        de la pantalla: llevaba el ojo al sitio equivocado y no tenía nada que ver
+                        con el agua ni con los hábitos. Es la cuarta sección que pide la
+                        referencia, en el hueco que deja Gestión de Cuenta.
+                    -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/tab_tile"
+                            android:layout_height="@dimen/tab_tile"
+                            android:background="@drawable/bg_section_tile"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/space_m"
+                            android:src="@drawable/ic_min_warning"
+                            app:tint="@color/glyph_led_on" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_l"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Nothing.SectionTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_section_report" />
+
+                            <TextView
+                                style="@style/Nothing.SectionHint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xs"
+                                android:text="@string/settings_hint_report" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Nothing.Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:layout_marginEnd="@dimen/screen_padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/card_padding">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonReport"
+                                style="@style/Nothing.Button.Outlined"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/button_report" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!--
+                        La versión, al final del todo. Hace falta para que un betatester pueda
+                        decir con cuál está probando — y es además el sitio donde se desbloquea
+                        el modo Pokémon, con siete toques, como las opciones de desarrollador de
+                        Android. Ver MainActivity.setupVersionUnlock().
+                    -->
+                    <TextView
+                        android:id="@+id/textVersion"
+                        style="@style/Nothing.SectionHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_padding"
+                        android:layout_marginTop="@dimen/space_xxl"
+                        android:layout_marginEnd="@dimen/screen_padding"
+                        android:gravity="center"
+                        android:padding="@dimen/space_m" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
@@ -381,28 +1214,60 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="40dp">
+                    android:paddingBottom="@dimen/scroll_bottom">
 
         <!-- ============================================================
              Diseños: lo que más ocupa, al final
              ============================================================ -->
-        <TextView
-            style="@style/Nothing.SectionLabel"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/section_designs" />
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xxl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/tab_tile"
+                android:layout_height="@dimen/tab_tile"
+                android:background="@drawable/bg_section_tile"
+                android:contentDescription="@null"
+                android:padding="@dimen/space_m"
+                android:src="@drawable/ic_min_designs"
+                app:tint="@color/glyph_led_on" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_l"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Nothing.SectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/section_designs" />
+
+                <TextView
+                    style="@style/Nothing.SectionHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:text="@string/section_hint_designs" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAddGif"
             style="@style/Nothing.Button.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
             android:text="@string/button_add_gif" />
 
         <TextView
@@ -410,9 +1275,9 @@
             style="@style/Nothing.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/space_xxl"
+            android:layout_marginTop="@dimen/space_xl"
+            android:layout_marginEnd="@dimen/space_xxl"
             android:gravity="center"
             android:text="@string/empty_state" />
 
@@ -420,7 +1285,7 @@
             android:id="@+id/recyclerGifs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/space_s"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             tools:listitem="@layout/item_gif" />
@@ -429,7 +1294,7 @@
             style="@style/Nothing.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/space_xxl"
             android:gravity="center"
             android:text="@string/credit_text"
             android:textColor="@color/glyph_grey" />

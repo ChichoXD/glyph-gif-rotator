@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    La versión pequeña del mismo widget: el dato y la barra, sin detalle.
+
+    No es un widget distinto, es el mismo encogido. Se elige solo según el alto que le des al
+    colocarlo, así que un widget de una fila no sale con el texto cortado a la mitad.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/statRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/statIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:contentDescription="@string/widget_decor_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/glyph_grey"
+                android:textSize="10sp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.18"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/statValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/glyph_white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="monospace" />
+
+            <!--
+                El detalle existe aquí también aunque esté oculto: RemoteViews no permite montar
+                una vista que no esté en el layout, y tener el mismo id en las dos versiones deja
+                escribir el código una sola vez sin preguntar cuál se está pintando.
+            -->
+            <TextView
+                android:id="@+id/statDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColor="@color/glyph_grey"
+                android:textSize="10sp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.18"
+                android:textAllCaps="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/statProgress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+</LinearLayout>

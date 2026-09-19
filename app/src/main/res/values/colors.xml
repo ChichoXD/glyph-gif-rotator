@@ -8,4 +8,23 @@
     <color name="glyph_white">#FFFFFF</color>
     <color name="glyph_grey">#8A8A8A</color>
     <color name="glyph_divider">#242424</color>
+
+    <!--
+        Rediseño Nothing OS (21 de agosto de 2026).
+
+        El blanco cálido es lo que hace que un punto se lea como **un LED encendido** y no como un
+        píxel de una pantalla LCD. En todas las imágenes de referencia lo encendido tira a crema;
+        el blanco puro se queda para el texto, que sí tiene que ser blanco.
+
+        Y lo apagado **se pinta**, no se omite: ver la rejilla entera con solo algunos encendidos
+        es justamente la diferencia entre "un dibujo hecho de puntos" y la estética Nothing.
+    -->
+    <color name="glyph_led_on">#FFF6E3</color>
+    <color name="glyph_led_off">#3C3C3C</color>
+
+    <!-- Deshabilitado: se distingue del gris de texto para que "apagado" no parezca "secundario". -->
+    <color name="glyph_mute">#4A4A4A</color>
+
+    <!-- Contorno de tarjeta y de tile. Un punto por encima del divisor: rodea, no separa. -->
+    <color name="glyph_border">#262626</color>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tamaño de partida 2 x 1, y redimensionable en las dos direcciones: el widget elige
+    solo su versión grande o pequeña segun el alto que le des, asi que estirarlo no lo rompe.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:previewLayout="@layout/widget_preview_habits"
+    android:initialLayout="@layout/widget_stat"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="1"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen"
+    android:configure="dev.glyphrotator.app.ui.widget.WidgetDecorActivity" />

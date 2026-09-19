@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        La escala de espaciado de la app, en un solo sitio.
+
+        Antes las pantallas que se construyen a mano en código —logros, estadísticas, Pokémon—
+        colocaban **píxeles crudos** (`setPadding(64, 48, 48, 0)`, `ICON_PX = 96`). En el Phone
+        (3), con densidad 480 (×3), aquello se veía bien por casualidad: 96 px son exactamente
+        32 dp ahí y nada más. En una pantalla de otra densidad los mismos números salen del
+        tamaño equivocado, y como el diseño se monta en código no hay forma de que Android lo
+        corrija solo.
+
+        Los valores están elegidos para que en el Phone (3) se vea **igual que antes**: casi
+        todos caían justos en la rejilla de 4 dp. La única excepción es el margen de pantalla,
+        que eran 56 px (18,67 dp) y ahora son 20 dp — los mismos que ya usaban los márgenes de
+        `activity_main.xml`, así que de paso las pantallas de código y las de XML dejan de ir
+        cada una por su lado.
+    -->
+
+    <!-- Rejilla de 4 dp. Si hace falta un valor que no esté aquí, casi siempre es que la
+         separación correcta es uno de estos. -->
+    <dimen name="space_xxs">2dp</dimen>
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">12dp</dimen>
+    <dimen name="space_l">16dp</dimen>
+    <dimen name="space_xl">24dp</dimen>
+    <dimen name="space_xxl">32dp</dimen>
+
+    <!-- Margen contra el borde de la pantalla. El mismo que los márgenes de activity_main. -->
+    <dimen name="screen_padding">20dp</dimen>
+
+    <!--
+        Aire dentro de una tarjeta. Antes cada una ponía su propio número a mano —18, 16, 14— y la
+        diferencia no la decidía nadie: se copiaba de la de al lado y se ajustaba a ojo.
+    -->
+    <dimen name="card_padding">20dp</dimen>
+
+    <!--
+        Aire al final de un scroll. Existe para que la última tarjeta no acabe pegada a la barra de
+        gestos, que es donde el dedo la tapa justo cuando vas a tocarla.
+    -->
+    <dimen name="scroll_bottom">40dp</dimen>
+
+    <!--
+        Lo mínimo que puede medir algo que se toca. No es una preferencia estética: por debajo de
+        48 dp el dedo falla, y el icono de dentro puede seguir siendo pequeño mientras la zona
+        sensible llegue aquí.
+    -->
+    <dimen name="touch_target">48dp</dimen>
+
+    <!-- Grosor del hilo que separa secciones. Uno, no tres: es una línea, no una barra. -->
+    <dimen name="hairline">1dp</dimen>
+
+    <!-- Barras de progreso de los logros. -->
+    <dimen name="progress_bar_height">2dp</dimen>
+
+    <!--
+        La fila de pestañas con icono (rediseño del 21 de agosto).
+
+        El tile son 44 dp y no los 40 que aparentan las referencias: con la etiqueta debajo la
+        pestaña entera pasa de 48 dp de alto, que es el mínimo para tocar sin fallar. El radio de
+        14 sobre 44 da la curva squircle que pide el encargo sin llegar a parecer un círculo.
+    -->
+    <dimen name="tab_tile">44dp</dimen>
+
+    <!--
+        Alto mínimo del tile de la galería de diseños. El ancho lo reparte el GridLayoutManager
+        entre las columnas; esto solo evita que una imagen muy apaisada deje la celda aplastada.
+    -->
+    <dimen name="design_tile">76dp</dimen>
+    <dimen name="tab_tile_radius">14dp</dimen>
+    <dimen name="tab_icon">22dp</dimen>
+
+    <!-- Iconos de puntos, por sitio donde aparecen. -->
+    <dimen name="dot_icon_small">24dp</dimen>
+    <dimen name="dot_icon_row">32dp</dimen>
+    <dimen name="dot_icon_stat">44dp</dimen>
+    <dimen name="dot_icon_detail">56dp</dimen>
+</resources>

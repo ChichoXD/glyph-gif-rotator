@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Un frame suelto del sprite. Se mete uno por cada fotograma dentro del ViewFlipper del widget:
+    es la única forma de animar en el escritorio, porque RemoteViews no sabe reproducir un GIF.
+-->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameImage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:adjustViewBounds="true"
+    android:scaleType="fitCenter"
+    android:contentDescription="@string/content_desc_sprite" />

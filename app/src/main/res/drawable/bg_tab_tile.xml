@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El tile que rodea al icono de cada pestaña.
+
+    Seleccionado y sin seleccionar se distinguen por **dos cosas a la vez**, no solo por el color:
+    el contorno pasa de gris a blanco cálido y el fondo se rellena. Con un único indicador, quien
+    no distinga bien el contraste se queda sin saber en qué pestaña está.
+
+    El relleno del seleccionado no es decoración: es lo que le da peso frente a los otros siete
+    cuando la fila entera está en pantalla.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glyph_card" />
+            <stroke
+                android:width="@dimen/hairline"
+                android:color="@color/glyph_led_on" />
+            <corners android:radius="@dimen/tab_tile_radius" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="@dimen/hairline"
+                android:color="@color/glyph_border" />
+            <corners android:radius="@dimen/tab_tile_radius" />
+        </shape>
+    </item>
+
+</selector>

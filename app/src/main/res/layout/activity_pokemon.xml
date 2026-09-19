@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/glyph_black"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.PokemonActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <!--
+            Cabecera en tres niveles: entradilla técnica, título grande y progreso en gris.
+
+            El título estaba a 16dp de la barra de estado y con el mismo peso que media pantalla.
+            Ahora respira y manda: 32sp, sin espaciado de letras —a 22sp y muy espaciado se leía
+            como una etiqueta más, no como el nombre de la pantalla—. La entradilla dice qué
+            cubre esta Pokédex, que es información de verdad y no adorno.
+        -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_xl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:text="@string/pokemon_eyebrow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <dev.glyphrotator.app.ui.DotTextView
+                android:id="@+id/textPokemonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/buttonHelpPokemon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/tutorial_button"
+                android:padding="8dp"
+                android:src="@drawable/ic_min_info"
+                app:tint="@color/glyph_grey" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textPokedexProgress"
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginEnd="@dimen/screen_padding"
+            tools:text="Pokédex: 3 / 151" />
+
+        <!-- Compañero de entrenamiento -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_section_training" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/glyph_divider" />
+
+        <TextView
+            android:id="@+id/textTrainingPartner"
+            style="@style/Nothing.EmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_no_partner" />
+
+        <!-- Salida de emergencia si hay un salvaje atascado en la Matrix -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonWild"
+            style="@style/Nothing.Button.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:visibility="gone"
+            android:text="@string/wild_pending_button" />
+
+        <!--
+            Las estadísticas van en su propio botón y no escondidas dentro de hábitos: cubren
+            agua, hábitos y sueño, y metidas ahí no se llegaba a ellas sin tener hábitos puestos.
+        -->
+        <!--
+            Estos cinco botones son navegación, y la navegación no se pinta de rojo.
+
+            Antes LOGROS y VER ESTADÍSTICAS iban rellenos: dos acciones principales seguidas, que
+            es lo mismo que ninguna. El rojo se reserva para lo que hay que atender ahora — el
+            salvaje esperando, que sí es un estado y sigue siendo el único relleno de la pantalla.
+        -->
+        <!--
+            Cuadrícula de 2x2 en vez de cinco botones anchos apilados.
+
+            Apilados eran cinco renglones que había que leer de arriba abajo, todos con la misma
+            forma y el mismo peso: la lista no decía nada, solo ocupaba pantalla. En dos columnas
+            se abarcan de un vistazo y el icono los distingue antes que la etiqueta, que es
+            exactamente el mismo razonamiento que llevó las pestañas a tiles el 21 de agosto.
+
+            `¿DORMISTE BIEN?` se queda ancho debajo: es el único que abre un informe en vez de una
+            pantalla, y la forma distinta lo separa sin tener que leerlo.
+        -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:columnCount="2"
+            android:useDefaultMargins="false">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAchievements"
+                style="@style/Nothing.Button.Tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:text="@string/button_achievements"
+                app:icon="@drawable/ic_min_achievement" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonStats"
+                style="@style/Nothing.Button.Tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="@dimen/space_xs"
+                android:text="@string/habits_stats"
+                app:icon="@drawable/ic_min_stats" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonWater"
+                style="@style/Nothing.Button.Tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="@dimen/space_s"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:text="@string/button_water"
+                app:icon="@drawable/ic_min_water" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonHabits"
+                style="@style/Nothing.Button.Tile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="@dimen/space_xs"
+                android:layout_marginTop="@dimen/space_s"
+                android:text="@string/button_habits"
+                app:icon="@drawable/ic_min_habits" />
+        </GridLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSleep"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_s"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:text="@string/button_sleep" />
+
+        <!--
+            Huevos: cuántos tienes, cómo va el que incuba y cuánto falta para el siguiente.
+
+            En cápsula con el contorno punteado y no como una línea suelta de texto: un huevo es lo
+            único de esta pantalla que está **a medias**, y el punteado lo dice sin escribirlo. Ver
+            bg_dotted_capsule.
+        -->
+        <TextView
+            android:id="@+id/textEggs"
+            style="@style/Nothing.EmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_l"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:background="@drawable/bg_dotted_capsule"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/card_padding"
+            android:paddingVertical="@dimen/space_m"
+            android:text="@string/pokemon_eggs_none" />
+
+        <!-- Inventario -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_section_inventory" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/glyph_divider" />
+
+        <!--
+            El inventario vacío sigue siendo una línea de texto; con objetos se rellena la
+            cuadrícula de abajo y esta se esconde. Son dos formas distintas porque son dos cosas
+            distintas: "no tienes nada" es una frase, y lo que tienes es una tabla.
+        -->
+        <TextView
+            android:id="@+id/textInventory"
+            style="@style/Nothing.EmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:text="@string/pokemon_inventory_empty" />
+
+        <!--
+            Dos columnas en vez de una lista larga: los objetos son nombres cortos con una cifra
+            detrás, así que una sola columna desperdiciaba media pantalla a la derecha y obligaba a
+            recorrer ocho renglones para ver lo que tienes.
+
+            Se rellena desde el código porque el número de objetos cambia con la partida.
+        -->
+        <GridLayout
+            android:id="@+id/gridInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:columnCount="2"
+            android:visibility="gone" />
+
+        <!-- Equipo -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_section_team" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/glyph_divider" />
+
+        <TextView
+            android:id="@+id/textTeamEmpty"
+            style="@style/Nothing.EmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="@string/pokemon_team_empty" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_pokemon" />
+
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/cry_section" />
+
+        <TextView
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/cry_hint" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCrySoundSet"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            tools:text="Sonido: Juego clásico (8 bits)" />
+
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/sprites_section" />
+
+        <TextView
+            android:id="@+id/textSpritesState"
+            style="@style/Nothing.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            tools:text="151 de 151 sprites importados" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonImportSprites"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/sprites_import" />
+
+        <!-- Utilidades de prueba -->
+        <TextView
+            style="@style/Nothing.SectionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_section_debug" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/glyph_divider" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCatchRandom"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_catch_random" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonGiveItems"
+            style="@style/Nothing.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/pokemon_give_items" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

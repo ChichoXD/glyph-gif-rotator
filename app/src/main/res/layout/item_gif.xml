@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    Una celda de la galería de diseños: el dibujo dentro de un tile squircle, y nada más.
+
+    Antes era una fila de lista con miniatura de 48 dp, el nombre del archivo al lado y un aspa.
+    Con veinte diseños eso son veinte renglones que hay que leer uno a uno, y la miniatura era
+    demasiado pequeña para reconocer nada — que es justo para lo que estaba.
+
+    **Sin nombre debajo**, como en la referencia (panel A del mockup del dashboard). Un diseño se
+    reconoce por cómo se ve; el nombre del archivo no añade nada y con cuatro columnas se quedaría
+    en dos sílabas cortadas. El nombre sigue estando en el `contentDescription`, así que TalkBack lo
+    anuncia y no se pierde para quien no ve la miniatura.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginTop="8dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/glyph_divider"
-    app:strokeWidth="1dp">
+    android:padding="@dimen/space_xs">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGifTile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        app:cardBackgroundColor="@color/glyph_card"
+        app:cardCornerRadius="@dimen/tab_tile_radius"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/glyph_border"
+        app:strokeWidth="@dimen/hairline">
 
+        <!--
+            Cuadrado a la fuerza: los diseños se pintan en una Matrix de 25x25, así que un tile
+            cuadrado enseña el mismo encuadre que se va a ver detrás. Uno apaisado mentiría.
+        -->
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/imageGifPreview"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/glyph_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/content_desc_gif_preview"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:minHeight="@dimen/design_tile"
+            android:padding="@dimen/space_s"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_broken_image" />
+    </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/textGifName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="middle"
-            android:fontFamily="monospace"
-            android:maxLines="2"
-            android:textColor="@color/glyph_white"
-            android:textSize="13sp"
-            app:layout_constraintStart_toEndOf="@id/imageGifPreview"
-            app:layout_constraintEnd_toStartOf="@id/buttonRemoveGif"
-            app:layout_constraintTop_toTopOf="@id/imageGifPreview"
-            app:layout_constraintBottom_toBottomOf="@id/imageGifPreview"
-            tools:text="mi_animacion.gif" />
-
-        <ImageButton
-            android:id="@+id/buttonRemoveGif"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/content_desc_remove_gif"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:tint="@color/glyph_grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageGifPreview"
-            app:layout_constraintBottom_toBottomOf="@id/imageGifPreview" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+    <!--
+        El aspa encima del tile: en rejilla no hay sitio para una columna de botones, y arriba a la
+        derecha es donde se busca. Con su propio fondo para que se lea también sobre un GIF claro.
+    -->
+    <ImageButton
+        android:id="@+id/buttonRemoveGif"
+        android:layout_width="@dimen/dot_icon_row"
+        android:layout_height="@dimen/dot_icon_row"
+        android:layout_gravity="top|end"
+        android:layout_margin="@dimen/space_xs"
+        android:background="@drawable/bg_section_tile"
+        android:contentDescription="@string/content_desc_remove_gif"
+        android:padding="@dimen/space_xs"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="@color/glyph_grey" />
+</FrameLayout>

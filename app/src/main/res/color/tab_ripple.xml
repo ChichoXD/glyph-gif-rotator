@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    El destello al tocar una pestaña.
+
+    Existe porque el de Material tiñe de `colorPrimary` —que aquí es el rojo— **en estado
+    seleccionado**, no solo al pulsar. Con el tile marcando ya cuál está activa, aquello salía
+    como un halo rojo enorme detrás de la pestaña, desbordando la fila entera.
+
+    Blanco muy bajo y solo mientras se pulsa: hace falta la respuesta al dedo, no una segunda
+    marca de selección compitiendo con el tile.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#22FFFFFF" android:state_pressed="true" />
+    <item android:color="@android:color/transparent" />
+</selector>
